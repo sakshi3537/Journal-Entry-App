@@ -17,7 +17,6 @@ const createCard= async (req,res) => {
     const card = req.body;
     const newCard= new cardModel(card);
     try {
-
         await newCard.save();
         res.status(201);
     } catch (error) {

@@ -1,0 +1,4 @@
+const FETCH_ALL = 'FETCH_ALL';
+const FETCH_BY_ID = 'FETCH_BY_ID';
+
+export {FETCH_ALL,FETCH_BY_ID};
