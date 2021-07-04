@@ -1,11 +1,13 @@
 import React from 'react';
 import { Card, Icon } from 'semantic-ui-react'
 import moment from 'moment'
+import { render } from 'react-dom';
 
 
 
-const MyCard = (card) => (
-  <Card
+const MyCard = ({card}) => {
+  return(
+  <Card fluid
     header= {card.title}
     image= {card.image}
     
@@ -14,6 +16,7 @@ const MyCard = (card) => (
     //For adding tags
     extra={moment(card.createdAt).fromNow()}
   />
-)
+  );
+}
 
 export default MyCard;

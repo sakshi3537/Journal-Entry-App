@@ -4,9 +4,10 @@ import cardModel from '../Models/cardsModel.js'
 
 const fetchCards= async (req,res) => {
     try {
+        //console.log('Reached Fetch Cards!');
         const cards= await cardModel.find();
-        res.status(200).json(cards);
         console.log(cards);
+        res.status(200).json(cards);
     } catch (error) {
         res.status(404).json(error);
     }

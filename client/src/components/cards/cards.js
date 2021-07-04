@@ -1,10 +1,10 @@
 import React from 'react'
 import { Grid, Image } from 'semantic-ui-react'
-import {useSelector} from 'react-redux'
+import { useSelector} from 'react-redux'
 import MyCard from './card/card.js'
 
 const Cards = () => {
-  const cards = useSelector((state) => state.cards);
+  const cards = useSelector((state) => state.cardReducer);
   return(
   <Grid columns={1} divided>
     <Grid.Row>

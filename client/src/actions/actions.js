@@ -3,7 +3,11 @@ import { FETCH_ALL, FETCH_BY_ID } from "../constants/constants";
 
 const fetchCards = () => async (dispatch) => {
     try {
-        const {cards} = await api.fetchCards();
+        //console.log('Reached Fetch Cards!');
+        const {data} = await api.fetchCards();
+        const cards=data;
+
+        //console.log('Fecth Done!');
         dispatch({type : FETCH_ALL, payload : cards});
     } catch (error) {
         console.log(error);
@@ -12,8 +16,10 @@ const fetchCards = () => async (dispatch) => {
 
 const createCard = (card) => async (dispatch) => {
     try {
+        //console.log('Reached Create Card!');
         await api.createCard(card);
-        fetchCards();
+        //console.log('Card Done!');
+        dispatch(fetchCards());
     } catch (error) {
         console.log(error);
     }
@@ -21,7 +27,8 @@ const createCard = (card) => async (dispatch) => {
 
 const fetchCardById = (id) => async (dispatch) => {
     try {
-        const {card} = await api.fetchCardById(id);
+        const {data} = await api.fetchCardById(id);
+        const card=data;
         dispatch({type : FETCH_BY_ID, payload : card});
     } catch (error) {
         console.log(error);

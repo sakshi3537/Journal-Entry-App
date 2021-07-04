@@ -8,15 +8,29 @@ import Sidebar from './components/sidebar/sidebar.js'
 import CreateCard from './components/createCard/createCard.js'
 import MyCard from './components/cards/card/card.js'
 import Cards from './components/cards/cards.js'
+import { Grid } from 'semantic-ui-react'
 
 const App = () => {
   const [flagForCreateCard, setFlagForCreateCard] = useState(0);
   return(
   <div>
   <Topnavbar/>
-  <Sidebar flagForCreateCard = {flagForCreateCard} setFlagForCreateCard = {setFlagForCreateCard} />
-  <CreateCard flagForCreateCard = {flagForCreateCard} setFlagForCreateCard = {setFlagForCreateCard} />
-  <Cards/>
+  <Grid>
+    <Grid.Row>
+      <Grid.Column width={3}>
+      <Sidebar flagForCreateCard = {flagForCreateCard} setFlagForCreateCard = {setFlagForCreateCard} />
+      <CreateCard flagForCreateCard = {flagForCreateCard} setFlagForCreateCard = {setFlagForCreateCard} />
+      </Grid.Column>
+      <Grid.Column width={8}>
+      <Cards/>
+      </Grid.Column>
+      <Grid.Column width={4}>
+        {
+          //For later use
+        }
+      </Grid.Column>
+    </Grid.Row>
+  </Grid>
   </div>
   );
 }

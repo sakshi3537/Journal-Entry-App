@@ -12,25 +12,28 @@ const CreateCard = (flagForCreateCard, setFlagForCreateCard) => {
   const fileInputRef = React.createRef();
   const [card, setCard] = useState({title: '', creator: '', tags: [], caption: '', image: ''});
   const fileChange = (e) => {
-    setCard({ file: e.target.files[0] });
+    setCard({ ...card, image: e.target.files[0] });
   };
-  const handleSubmit = async (e) => {     
+  const handleSubmit = async (e) => {  
+
       e.preventDefault();
       dispatch(createCard(card));
-      setCard({title: '', creator: '', tags: [], caption: '', image: ''});
+      //setCard({title: '', creator: '', tags: [], caption: '', image: ''});
   };
   
   return (
+    
     <Modal
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
       trigger={<Button>Create Card</Button>}
     >
+      
       <Modal.Header className = "header">Create Card</Modal.Header>
       <Modal.Content >
-           <Form className = "formStyles">
           
+      <Form className = "formStyles" onSubmit = {handleSubmit}>
             <Form.Field >
                 <label  >Title</label>
                 <input placeholder='Title' style={{width: "370px" }} onChange = {(e) => {setCard({...card, title : e.target.value})}}/>
@@ -53,23 +56,24 @@ const CreateCard = (flagForCreateCard, setFlagForCreateCard) => {
               icon="file"
               onClick={() => fileInputRef.current.click()}
               
-         />
-        <input
-          ref={fileInputRef}
-          type="file"
-          hidden
-          onChange={fileChange}
-        />
+             />
+            <input
+              ref={fileInputRef}
+              type="file"
+              hidden
+              onChange={fileChange}
+            />
      </Form.Field>
-  </Form>
+     </Form>
 
       </Modal.Content>
       <Modal.Actions>
         <Button onClick={() => setOpen(false)} >Cancel</Button>
-        <Button onClick={() => setOpen(false)} onSubmit = {handleSubmit} positive >
+        <Button onClick={(e) => {setOpen(false);handleSubmit(e);}}  positive >
           Create Card
         </Button>
       </Modal.Actions>
+
     </Modal>
   )
 }
@@ -77,7 +81,7 @@ const CreateCard = (flagForCreateCard, setFlagForCreateCard) => {
 export default CreateCard;
 
 
-{/* <form className = "formStyles">
+/*{ <form className = "formStyles">
               <div>
               <label for = "title"> Title </label>
               <input className = "inputStyles" type = "text" name = "title" placeholder = "Title" ></input>
@@ -95,7 +99,7 @@ export default CreateCard;
               <input className = "inputStyles" type = "text" name = "caption" placeholder = "Caption"></input>
               </div>
 
-          </form> */}
+          </form> }*/
 
 
 
@@ -108,6 +112,6 @@ export default CreateCard;
 
 // const CreateCard = () => {
 
-{}
+//{}
 // }
 // export default CreateCard

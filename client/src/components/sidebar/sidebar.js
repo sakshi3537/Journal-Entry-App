@@ -3,9 +3,10 @@ import { Input, Label, Menu } from 'semantic-ui-react'
 
 const Sidebar = (flagForCreateCard, setFlagForCreateCard) => {
 
-  const [status, setStatus] = useState('create card') 
+  const [status, setStatus] = useState('create card');
 
-  const handleItemClick = (e, { name }) => {setStatus(name);(name === 'create card')?setFlagForCreateCard(1):setFlagForCreateCard(0);}
+  const handleItemClick = (e, { name }) => setStatus(name);
+  //const handleItemClick = (e, { name }) => {setStatus(name);(name === 'create card')?setFlagForCreateCard(1):setFlagForCreateCard(0);}
   
 
    return (
@@ -23,8 +24,8 @@ const Sidebar = (flagForCreateCard, setFlagForCreateCard) => {
         <Menu.Item
           name='view cards'
           color='teal'
-          active={status === 'view cards'}
           onClick={handleItemClick}
+          active={status === 'view cards'}
         >
           View Cards
         </Menu.Item>

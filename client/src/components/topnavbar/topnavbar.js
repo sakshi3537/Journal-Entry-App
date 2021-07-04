@@ -1,30 +1,35 @@
 import React, { Component, useState } from 'react'
 import { Input, Menu } from 'semantic-ui-react'
 
-const Topnavbar = (flagForCreateCard, setFlagForCreateCard) => {
-  //state = { activeItem: 'home' }
-  const [status, setStatus] = useState('home') 
+const Topnavbar = () => {
+  
+  const [active, setActive] = useState('Journey') 
 
-  const handleItemClick = (e, { name }) => setStatus(name);
+  const handleItemClick = (e, { name }) => setActive(name);
 
     return (
-      <Menu style = {{backgroundColor : "black"}}>
+      <Menu 
+      style = {{backgroundColor : "black"}}
+      >
         <Menu.Item
           name='Journey'
-          style = {{color : "white"}}
-          active={status === 'home'}
+          style = {{color : "white",fontSize: "large"}}
+          color="teal"
+          active={active === 'Journey'}
           onClick={handleItemClick}
-        />
+        >Journey</Menu.Item>
         <Menu.Menu position='right'>
           <Menu.Item >
             <Input icon='search' placeholder='Search...' />
           </Menu.Item>
           <Menu.Item
             name='logout'
-            style = {{color : "white"}}
-            active={status === 'logout'}
-            onClick={handleItemClick}
-          />
+            style = {{color : "white", fontSize:"large"}}
+            color="teal"
+            active={active === 'logout'}
+            onClick={handleItemClick}>
+              Log out
+              </Menu.Item>
         </Menu.Menu>
       </Menu>
     );
