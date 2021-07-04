@@ -1,7 +1,7 @@
 import * as api from '../api/api.js'
 import { FETCH_ALL, FETCH_BY_ID } from "../constants/constants";
 
-const fetchCards = async () => {
+const fetchCards = () => async (dispatch) => {
     try {
         const {cards} = await api.fetchCards();
         dispatch({type : FETCH_ALL, payload : cards});
@@ -10,7 +10,7 @@ const fetchCards = async () => {
     }
 }
 
-const createCard = async (card) => {
+const createCard = (card) => async (dispatch) => {
     try {
         await api.createCard(card);
         fetchCards();
@@ -19,7 +19,7 @@ const createCard = async (card) => {
     }
 }
 
-const fetchCardById = async (id) => {
+const fetchCardById = (id) => async (dispatch) => {
     try {
         const {card} = await api.fetchCardById(id);
         dispatch({type : FETCH_BY_ID, payload : card});
@@ -27,7 +27,7 @@ const fetchCardById = async (id) => {
         console.log(error);
     }
 }
-const deleteCard = async (id) => {
+const deleteCard = (id) => async (dispatch) => {
     try {
         await api.deleteCard(id);
         fetchCards();
@@ -35,7 +35,7 @@ const deleteCard = async (id) => {
         console.log(error);
     }
 }
-const updateCard = async (id,card) => {
+const updateCard = (id,card) => async (dispatch) => {
     try {
         await api.updateCard(id,card);
         fetchCards();
@@ -43,7 +43,7 @@ const updateCard = async (id,card) => {
         console.log(error);
     }
 }
-const likeCard = async (id) => {
+const likeCard = (id) => async (dispatch) => {
     try {
         await api.likeCard(id);
         fetchCards();
@@ -52,5 +52,5 @@ const likeCard = async (id) => {
     }
 }
 
-
+export {fetchCards,createCard,fetchCardById,deleteCard,updateCard,likeCard};
 
