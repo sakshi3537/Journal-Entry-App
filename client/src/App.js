@@ -1,37 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Form, Dropdown } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import './App.css'
 import dropdownValues from  './constants/dropdown.js'
+import Topnavbar from './components/topnavbar/topnavbar.js'
+import Sidebar from './components/sidebar/sidebar.js'
+import CreateCard from './components/createCard/createCard.js'
+import MyCard from './components/cards/card/card.js'
+import Cards from './components/cards/cards.js'
 
-
-const App = () => (
-  <Form>
-    <Form.Field inline>
-      <label  >Title</label>
-      <input placeholder='Title' style={{width: "370px" }} />
-    </Form.Field>
-    <Form.Field inline>
-      <label >Creator</label>
-      <input placeholder='Creator' style={{width: "370px" }} />
-    </Form.Field>
-    <Form.Field >
-        <span>
-            <label > Tags </label>
-                <Dropdown inline placeholder='Tags' multiple search selection options={dropdownValues} style={{width: "370px" }} />
-        </span>
-    </Form.Field>
-    <Form.Field inline>
-      <label >Caption</label>
-      <input placeholder='Caption' style={{width: "370px" }}/>
-    </Form.Field>
-    <Form.Field inline>
-      <label >Image</label>
-      <input placeholder='Image' style={{width: "370px" }}/>
-    </Form.Field>
-    <Button type='submit'>Submit</Button>
-  </Form>
-)
+const App = () => {
+  const [flagForCreateCard, setFlagForCreateCard] = useState(0);
+  return(
+  <div>
+  <Topnavbar/>
+  <Sidebar flagForCreateCard = {flagForCreateCard} setFlagForCreateCard = {setFlagForCreateCard} />
+  <CreateCard flagForCreateCard = {flagForCreateCard} setFlagForCreateCard = {setFlagForCreateCard} />
+  <Cards/>
+  </div>
+  );
+}
 
 
 export default App

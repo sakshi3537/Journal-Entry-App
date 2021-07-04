@@ -1,3 +1,28 @@
-.enable{
-    color : red;
+.formStyles{
+    border : black solid 0.25rem;
+    margin : 1rem;
+    padding : 1rem;
+
+
+}
+
+.inputStyles{
+    margin : 1rem;
+
+
+}
+.header{
+    text-align : center;
+}
+
+.imageStyles{
+    align : right;
+}
+
+.section1{
+    float : left;
+}
+
+.section2{
+    float : right;
 }
