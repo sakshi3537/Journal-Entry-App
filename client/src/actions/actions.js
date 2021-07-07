@@ -18,7 +18,9 @@ const createCard = (card) => async (dispatch) => {
     try {
         //console.log('Reached Create Card!');
         await api.createCard(card);
+        //console.log(id);
         //console.log('Card Done!');
+        //fetchCards();
         dispatch(fetchCards());
     } catch (error) {
         console.log(error);

@@ -1,35 +1,34 @@
 import React, { Component, useState } from 'react'
-import { Input, Label, Menu } from 'semantic-ui-react'
+import { Input, Label, Menu, Button } from 'semantic-ui-react'
 
 const Sidebar = (flagForCreateCard, setFlagForCreateCard) => {
 
-  const [status, setStatus] = useState('create card');
+  const [status, setStatus] = useState('');
 
   const handleItemClick = (e, { name }) => setStatus(name);
   //const handleItemClick = (e, { name }) => {setStatus(name);(name === 'create card')?setFlagForCreateCard(1):setFlagForCreateCard(0);}
-  
-
    return (
-      <Menu vertical>
-        <Menu.Item
-          name='create card'
-          color='teal'
-          onClick={handleItemClick}
-          active={status === 'create card'}
-          
-        >
-          Create Card
-        </Menu.Item>
+    <Menu vertical>
+      <Menu.Item
+        id='createCard'
+        name='create card'
+        color='teal'
+        onClick={handleItemClick}
+        active={status === 'create card'}
+        
+      >
+        Create Card
+      </Menu.Item>
 
-        <Menu.Item
-          name='view cards'
-          color='teal'
-          onClick={handleItemClick}
-          active={status === 'view cards'}
-        >
-          View Cards
-        </Menu.Item>
-      </Menu>
+      <Menu.Item
+        name='view cards'
+        color='teal'
+        onClick={handleItemClick}
+        active={status === 'view cards'}
+      >
+        View Cards
+      </Menu.Item>
+    </Menu>
     );
 }
 export default Sidebar;

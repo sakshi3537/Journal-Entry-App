@@ -7,22 +7,24 @@ import {createCard} from '../../actions/actions.js'
 
 
 const CreateCard = (flagForCreateCard, setFlagForCreateCard) => {
+  //console.log(status);
   const dispatch = useDispatch();  
   const [open, setOpen] = useState(false);
   const fileInputRef = React.createRef();
   const [card, setCard] = useState({title: '', creator: '', tags: [], caption: '', image: ''});
+  const {value}=card.tags;
   const fileChange = (e) => {
     setCard({ ...card, image: e.target.files[0] });
   };
   const handleSubmit = async (e) => {  
 
       e.preventDefault();
+      //console.log(card.tags);
       dispatch(createCard(card));
-      //setCard({title: '', creator: '', tags: [], caption: '', image: ''});
+      setCard({title: '', creator: '', tags: [], caption: '', image: ''});
   };
   
   return (
-    
     <Modal
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
@@ -44,7 +46,7 @@ const CreateCard = (flagForCreateCard, setFlagForCreateCard) => {
             </Form.Field>
             <Form.Field >
             <label > Tags </label>
-                <Dropdown placeholder='Tags' multiple search selection options={dropdownValues} style={{width: "370px" }} onChange = {(e) => {setCard({...card, tags : e.target.value})}} />
+                <Dropdown placeholder='Tags' multiple search selection options={dropdownValues} style={{width: "370px" }} onChange = {(e, { value }) => setCard({ ...card, tags: value })} value={value} />
             </Form.Field>
             <Form.Field >
                 <label >Caption</label>
@@ -75,6 +77,8 @@ const CreateCard = (flagForCreateCard, setFlagForCreateCard) => {
       </Modal.Actions>
 
     </Modal>
+
+    
   )
 }
 
