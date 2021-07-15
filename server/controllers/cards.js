@@ -4,9 +4,7 @@ import cardModel from '../Models/cardsModel.js'
 
 const fetchCards= async (req,res) => {
     try {
-        //console.log('Reached Fetch Cards!');
         const cards= await cardModel.find();
-        //console.log(cards);
         cards.reverse();
         res.status(200).json(cards);
     } catch (error) {
@@ -14,15 +12,14 @@ const fetchCards= async (req,res) => {
     }
     
 }
-// lets see what happens
+
+
 const createCard= async (req,res) => {
     const card = req.body;
-    //console.log(card.tags);
     const newCard= new cardModel(card);
-    //console.log(newCard);
     try {
         await newCard.save();
-        res.status(201);
+        res.status(201).json(newCard);
     } catch (error) {
         
         res.status(409).json(error);
@@ -32,10 +29,7 @@ const createCard= async (req,res) => {
 const fetchCardById = async (req,res)=> {
     const {id} = req.params;
     try {
-        //console.log("Reached FetchCard By Id");
         const card= await cardModel.findById(id);
-        //console.log("Done FetchCard By Id");
-        //console.log(card);
         res.status(200).json(card); 
     } catch (error) {
         res.status(404).json(error);

@@ -1,27 +1,22 @@
-import React, {useState} from 'react'
+import React, {useState,useRef} from 'react'
 import {useDispatch} from 'react-redux'
 import { Button, Form, Dropdown, Image, Modal } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import dropdownValues from  '../../constants/dropdown.js'
 import {createCard} from '../../actions/actions.js'
+import FileBase64 from 'react-file-base64';
 
 
-const CreateCard = (flagForCreateCard, setFlagForCreateCard) => {
-  //console.log(status);
+const CreateCard = () => {
   const dispatch = useDispatch();  
   const [open, setOpen] = useState(false);
-  const fileInputRef = React.createRef();
-  const [card, setCard] = useState({title: '', creator: '', tags: [], caption: '', image: ''});
+  const [card, setCard] = useState({title: '', creator: '', tags: [], caption: '', imageFile: ''});
   const {value}=card.tags;
-  const fileChange = (e) => {
-    setCard({ ...card, image: e.target.files[0] });
-  };
   const handleSubmit = async (e) => {  
 
       e.preventDefault();
-      //console.log(card.tags);
       dispatch(createCard(card));
-      setCard({title: '', creator: '', tags: [], caption: '', image: ''});
+      setCard({title: '', creator: '', tags: [], caption: '', imageFile: ''});
   };
   
   return (
@@ -52,20 +47,9 @@ const CreateCard = (flagForCreateCard, setFlagForCreateCard) => {
                 <label >Caption</label>
                 <input placeholder='Caption' style={{width: "370px" }} onChange = {(e) => {setCard({...card, caption : e.target.value})}}/>
             </Form.Field>
-            <Form.Field className = "imageStyles">
-             <Button    content="Choose File"
-             labelPosition="left"
-              icon="file"
-              onClick={() => fileInputRef.current.click()}
-              
-             />
-            <input
-              ref={fileInputRef}
-              type="file"
-              hidden
-              onChange={fileChange}
-            />
-     </Form.Field>
+            <Form.Field className = "imageStyles" style={{width:"47%"}}>
+             <FileBase64 type="file" multiple={false} onDone={({ base64 }) => setCard({ ...card, imageFile: base64 })} />
+            </Form.Field>
      </Form>
 
       </Modal.Content>

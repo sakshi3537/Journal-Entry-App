@@ -1,16 +1,21 @@
 import React, { Component, useState } from 'react'
 import { Input, Label, Menu, Button } from 'semantic-ui-react'
+import ReactDOM from 'react-dom';
+import { useDispatch } from 'react-redux';
+import { fetchCards } from '../../actions/actions';
 
-const Sidebar = (flagForCreateCard, setFlagForCreateCard) => {
+const Sidebar = () => {
 
   const [status, setStatus] = useState('');
-
-  const handleItemClick = (e, { name }) => setStatus(name);
-  //const handleItemClick = (e, { name }) => {setStatus(name);(name === 'create card')?setFlagForCreateCard(1):setFlagForCreateCard(0);}
+  const dispatch=useDispatch();
+  const handleItemClick =  (e, { name }) => {
+    setStatus(name);
+    if(status==='view cards')
+      dispatch(fetchCards());
+  }
    return (
     <Menu vertical>
       <Menu.Item
-        id='createCard'
         name='create card'
         color='teal'
         onClick={handleItemClick}

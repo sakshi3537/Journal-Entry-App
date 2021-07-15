@@ -11,20 +11,20 @@ import Cards from './components/cards/cards.js'
 import { Grid } from 'semantic-ui-react'
 
 const App = () => {
-  const [flagForCreateCard, setFlagForCreateCard] = useState(0);
+  const [currentId,setCurrentId]= useState('');
   return(
   <div>
   <Topnavbar/>
   <Grid>
     <Grid.Row>
       <Grid.Column width={3}>
-      <Sidebar flagForCreateCard = {flagForCreateCard} setFlagForCreateCard = {setFlagForCreateCard} />
-      <CreateCard flagForCreateCard = {flagForCreateCard} setFlagForCreateCard = {setFlagForCreateCard} />
+      <Sidebar />
+      <CreateCard />
       </Grid.Column>
-      <Grid.Column width={8}>
-      <Cards/>
+      <Grid.Column width={5}>
+      <Cards />
       </Grid.Column>
-      <Grid.Column width={4}>
+      <Grid.Column width={5}>
         {
           //For later use
         }
