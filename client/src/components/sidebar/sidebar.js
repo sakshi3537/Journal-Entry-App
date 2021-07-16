@@ -1,13 +1,16 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useState,useEffect } from 'react'
 import { Input, Label, Menu, Button } from 'semantic-ui-react'
 import ReactDOM from 'react-dom';
 import { useDispatch } from 'react-redux';
 import { fetchCards } from '../../actions/actions';
 
 const Sidebar = () => {
-
   const [status, setStatus] = useState('');
   const dispatch=useDispatch();
+  useEffect(()=>{
+    if(status==='view cards')
+    dispatch(fetchCards());
+  },[status]);
   const handleItemClick =  (e, { name }) => {
     setStatus(name);
     if(status==='view cards')

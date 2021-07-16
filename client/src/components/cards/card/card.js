@@ -29,7 +29,11 @@ const MyCard = ({card}) => {
       </div>
       </div>
       <div style={{float:'right'}}>
-      {moment(card.createdAt).fromNow()}
+      {
+        //console.log(new Date())
+        //moment(card.createdAt)
+      moment(card.createdAt).fromNow()
+     }
       </div>
     </div>
   );

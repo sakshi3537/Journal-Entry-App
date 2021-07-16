@@ -40,7 +40,7 @@ const deleteCard = async (req,res) => {
     const {id}= req.params;
     try {
         await cardModel.findByIdAndRemove(id);
-        res.status(200);
+        res.status(200).json("Card Deleted Successfully");
     } catch (error) {
         res.status(404).json(error);
     }

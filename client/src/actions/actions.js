@@ -29,7 +29,7 @@ const fetchCardById = (id) => async (dispatch) => {
         console.log(error);
     }
 }
-const deleteCard = (id) => async(dispatch) => {
+const deleteCard = (id) => async (dispatch) => {
     try {
         await api.deleteCard(id);
         dispatch(fetchCards());
