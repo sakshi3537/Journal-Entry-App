@@ -4,17 +4,17 @@ import ReactDOM from 'react-dom';
 import { useDispatch } from 'react-redux';
 import { fetchCards } from '../../actions/actions';
 
-const Sidebar = () => {
+const Sidebar = ({flagForCreateCard,setFlagForCreateCard}) => {
   const [status, setStatus] = useState('');
   const dispatch=useDispatch();
   useEffect(()=>{
     if(status==='view cards')
     dispatch(fetchCards());
+    if(status==='create card')
+    setFlagForCreateCard(true);
   },[status]);
   const handleItemClick =  (e, { name }) => {
     setStatus(name);
-    if(status==='view cards')
-      dispatch(fetchCards());
   }
    return (
     <Menu vertical>

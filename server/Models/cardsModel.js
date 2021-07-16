@@ -8,7 +8,7 @@ const cardSchema = mongoose.Schema({
     imageFile: String,
     createdAt:{
         type: Date,
-        default: new Date()
+        default: Date.now
     },
     likeCount:{
         type: Number,

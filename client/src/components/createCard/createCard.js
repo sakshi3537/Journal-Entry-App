@@ -1,4 +1,4 @@
-import React, {useState,useRef} from 'react'
+import React, {useState,useRef, useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import { Button, Form, Dropdown, Image, Modal } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
@@ -7,11 +7,14 @@ import {createCard} from '../../actions/actions.js'
 import FileBase64 from 'react-file-base64';
 
 
-const CreateCard = () => {
+const CreateCard = ({flagForCreateCard,setFlagForCreateCard}) => {
   const dispatch = useDispatch();  
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(flagForCreateCard);
   const [card, setCard] = useState({title: '', creator: '', tags: [], caption: '', imageFile: ''});
   const {value}=card.tags;
+  useEffect(()=>{
+    setOpen(flagForCreateCard);
+  },[flagForCreateCard])
   const handleSubmit = async (e) => {  
 
       e.preventDefault();
@@ -24,7 +27,6 @@ const CreateCard = () => {
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button>Create Card</Button>}
     >
       
       <Modal.Header className = "header">Create Card</Modal.Header>
@@ -54,8 +56,8 @@ const CreateCard = () => {
 
       </Modal.Content>
       <Modal.Actions>
-        <Button onClick={() => setOpen(false)} >Cancel</Button>
-        <Button onClick={(e) => {setOpen(false);handleSubmit(e);}}  positive >
+        <Button onClick={() => {setOpen(false);setFlagForCreateCard(false);}} >Cancel</Button>
+        <Button onClick={(e) => {setOpen(false);handleSubmit(e);setFlagForCreateCard(false);}}  positive >
           Create Card
         </Button>
       </Modal.Actions>
