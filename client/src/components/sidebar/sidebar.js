@@ -13,6 +13,10 @@ const Sidebar = ({flagForCreateCard,setFlagForCreateCard}) => {
     if(status==='create card')
     setFlagForCreateCard(true);
   },[status]);
+  useEffect(()=>{
+    if(!flagForCreateCard)
+    setStatus('');
+  },[flagForCreateCard])
   const handleItemClick =  (e, { name }) => {
     setStatus(name);
   }

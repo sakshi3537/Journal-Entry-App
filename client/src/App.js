@@ -12,6 +12,7 @@ import { Grid } from 'semantic-ui-react'
 
 const App = () => {
   const [flagForCreateCard,setFlagForCreateCard]=useState(false);
+  const [currentId,setCurrentId]=useState('');
   return(
   <div>
   <Topnavbar/>
@@ -19,10 +20,10 @@ const App = () => {
     <Grid.Row>
       <Grid.Column width={3}>
       <Sidebar flagForCreateCard={flagForCreateCard} setFlagForCreateCard={setFlagForCreateCard}/>
-      <CreateCard flagForCreateCard={flagForCreateCard} setFlagForCreateCard={setFlagForCreateCard}/>
+      <CreateCard flagForCreateCard={flagForCreateCard} setFlagForCreateCard={setFlagForCreateCard} currentId={currentId} setCurrentId={setCurrentId}/>
       </Grid.Column>
       <Grid.Column width={5}>
-      <Cards />
+      <Cards currentId={currentId} setCurrentId={setCurrentId} flagForCreateCard={flagForCreateCard} setFlagForCreateCard={setFlagForCreateCard}/>
       </Grid.Column>
       <Grid.Column width={5}>
         {

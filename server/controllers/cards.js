@@ -16,9 +16,12 @@ const fetchCards= async (req,res) => {
 
 const createCard= async (req,res) => {
     const card = req.body;
-    const newCard= new cardModel(card);
+    const newCard= new cardModel({title: card.title, creator: card.creator, tags: card.tags, caption: card.caption, imageFile: card.image});
+    //console.log(newCard);
     try {
+        //console.log("yupp");
         await newCard.save();
+        //console.log("hry");
         res.status(201).json(newCard);
     } catch (error) {
         
@@ -50,8 +53,11 @@ const updateCard = async (req,res) => {
     const {id}= req.params;
     const card=req.body;
     try {
-        const updatedCard=cardModel.findByIdAndUpdate(id,card,{new:true});
-        res.status(200);
+        //console.log("Hi");
+        //console.log(card);
+        //console.log(id);
+        const updatedCard=await cardModel.findByIdAndUpdate(id,card,{new:true});
+        res.status(200).json(updatedCard);
     } catch (error) {
         res.status(404).json(error);
     }

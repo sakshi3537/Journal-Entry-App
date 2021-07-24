@@ -7,13 +7,15 @@ import { deleteCard,updateCard } from '../../../actions/actions';
 
 
 
-const MyCard = ({card}) => {
+const MyCard = ({card,currentId,setCurrentId,flagForCreateCard,setFlagForCreateCard}) => {
   const dispatch= useDispatch();
   const handleDeleteItem = () => {
     dispatch(deleteCard(card._id));
   }
   const handleUpdateItem= ()=>{
-    dispatch(updateCard(card));
+    setCurrentId(card._id);
+    setFlagForCreateCard(true);
+    //dispatch(updateCard(card));
   }
   const extra = (
     <div>

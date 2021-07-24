@@ -13,7 +13,7 @@ const fetchCards = () => async (dispatch) => {
 
 const createCard = (card) => async (dispatch) => {
     try {
-        const {data}=await api.createCard(card);
+        await api.createCard(card);
         dispatch(fetchCards());
     } catch (error) {
         console.log(error);
