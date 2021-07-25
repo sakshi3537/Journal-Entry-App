@@ -16,7 +16,7 @@ const fetchCards= async (req,res) => {
 
 const createCard= async (req,res) => {
     const card = req.body;
-    const newCard= new cardModel({title: card.title, creator: card.creator, tags: card.tags, caption: card.caption, imageFile: card.image});
+    const newCard= new cardModel({title: card.title, creator: card.creator, tags: card.tags, caption: card.caption, imageFile: card.imageFile});
     //console.log(newCard);
     try {
         //console.log("yupp");
@@ -29,7 +29,7 @@ const createCard= async (req,res) => {
     }
 }
 
-const fetchCardById = async (req,res)=> {
+/*const fetchCardById = async (req,res)=> {
     const {id} = req.params;
     try {
         const card= await cardModel.findById(id);
@@ -37,7 +37,7 @@ const fetchCardById = async (req,res)=> {
     } catch (error) {
         res.status(404).json(error);
     }
-}
+}*/
 
 const deleteCard = async (req,res) => {
     const {id}= req.params;
@@ -65,13 +65,13 @@ const updateCard = async (req,res) => {
 
 const likeCard = async (req,res)=>{
     const {id}= req.params;
-    const card=cardModel.findById(id);
+    const card=await cardModel.findById(id);
     try {
-        const updatedCard=cardModel.findByIdAndUpdate(id,{likeCount:card.likeCount+1},{new:true});
-        res.status(200);
+        const updatedCard=await cardModel.findByIdAndUpdate(id,{likeCount:card.likeCount+1},{new:true});
+        res.status(200).json(updatedCard);
     } catch (error) {
         res.status(404).json(error);
     }
 }
 
-export {fetchCards,createCard,fetchCardById,deleteCard,updateCard,likeCard};
+export {fetchCards,createCard,deleteCard,updateCard,likeCard};

@@ -4,7 +4,7 @@ import { useSelector} from 'react-redux'
 import MyCard from './card/card.js'
 
 const Cards = ({currentId,setCurrentId,flagForCreateCard,setFlagForCreateCard}) => {
-  const cards = useSelector((state) => state.cardReducer);
+  const cards = useSelector((state) => state.cardReducer.cards);
   return(
   <Grid columns={1} divided>
     <Grid.Row>

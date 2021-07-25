@@ -1,14 +1,24 @@
-import { FETCH_ALL, FETCH_BY_ID } from "../constants/constants";
+import { FETCH_ALL, LOADING_TRUE, LOADING_FALSE } from "../constants/constants";
 
-const cardReducer = (cards = [],action) => {
+const InitialState={
+    cards:[],
+    isLoading:false
+}
+
+const cardReducer = (state=InitialState,action) => {
     switch(action.type){
         case FETCH_ALL:
-            return action.payload;
-        case FETCH_BY_ID:
-            return action.payload;
+            return {...state,cards:action.payload};
+        case LOADING_TRUE:
+            return {...state,isLoading:true};
+        case LOADING_FALSE:
+            return {...state,isLoading:false};
         default:
-            return cards;
+            return state;
     }
 
 }
+
+
+
 export default cardReducer;

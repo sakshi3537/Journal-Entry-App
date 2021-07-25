@@ -1,6 +1,18 @@
 import React from 'react'
-import { Loader } from 'semantic-ui-react'
+import { useSelector } from 'react-redux';
+import '../../App.css'
+import loader from './gif/loader.gif'
 
-const Loader = () => <Loader active inline='centered' />
+const PageLoader = () => {
+    const isLoading  = useSelector((state) => state.cardReducer.isLoading);
+    if (!isLoading) return null;
+    return(
+        <div className="loader-container">
+        <div className="loader">
+        <img src={loader}></img>
+        </div>
+      </div>
+    );
+}
 
-export default Loader;
+export default PageLoader;

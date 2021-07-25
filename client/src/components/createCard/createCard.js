@@ -9,15 +9,14 @@ import FileBase64 from 'react-file-base64';
 
 const CreateCard = ({flagForCreateCard,setFlagForCreateCard,currentId,setCurrentId}) => {
   const dispatch = useDispatch();  
-  const cards= useSelector((state)=>state.cardReducer);
+  const cards= useSelector((state)=>state.cardReducer.cards);
   const currentCard=cards.find((card)=>(card._id===currentId));
   const [open, setOpen] = useState(flagForCreateCard);
   //console.log("h "+currentId);
   //console.log(currentCard);
   const cardTemplate={title: '', creator: '', tags: [], caption: '', imageFile: '',_id:''};
   const isCurrentIdNull=(currentId==="")?true:false;
-  //console.log(isCurrentIdNull);
-  const updatedCard=(isCurrentIdNull)?{}:{title:currentCard.title,creator:currentCard.creator,tags:currentCard.tags,caption:currentCard.caption,image:currentCard.image,_id:currentId};
+  const updatedCard=(isCurrentIdNull)?{}:{title:currentCard.title,creator:currentCard.creator,tags:currentCard.tags,caption:currentCard.caption,imageFile:currentCard.imageFile,_id:currentId};
   //console.log(isCurrentIdNull);
   //console.log(cardTemplate);
   //console.log(updatedCard);
@@ -72,7 +71,7 @@ const CreateCard = ({flagForCreateCard,setFlagForCreateCard,currentId,setCurrent
                 <input placeholder='Caption' style={{width: "370px" }} onChange = {(e) => {setCard({...card, caption : e.target.value})}} value={card.caption}/>
             </Form.Field>
             <Form.Field className = "imageStyles" style={{width:"47%"}}>
-             <FileBase64 type="file" multiple={false} onDone={({ base64 }) => setCard({ ...card, imageFile: base64 })} value={card.image} />
+             <FileBase64 type="file" multiple={false} onDone={({ base64 }) => setCard({ ...card, imageFile: base64 })} value={card.imageFile} />
             </Form.Field>
      </Form>
 

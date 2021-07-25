@@ -3,7 +3,7 @@ import { Card, Icon,Button } from 'semantic-ui-react'
 import moment from 'moment'
 import { render } from 'react-dom';
 import { useDispatch } from 'react-redux';
-import { deleteCard,updateCard } from '../../../actions/actions';
+import { deleteCard,likeCard,updateCard } from '../../../actions/actions';
 
 
 
@@ -17,6 +17,9 @@ const MyCard = ({card,currentId,setCurrentId,flagForCreateCard,setFlagForCreateC
     setFlagForCreateCard(true);
     //dispatch(updateCard(card));
   }
+  const handleLikeItem=()=>{
+    dispatch(likeCard(card._id));
+  }
   const extra = (
     <div>
       <div style={{float:"left"}}>
@@ -24,10 +27,13 @@ const MyCard = ({card,currentId,setCurrentId,flagForCreateCard,setFlagForCreateC
       {card.tags.map((tag) => `#${tag} `)}
       </div>
       <div style={{float:"left"}}>
-      {<Button style={{backgroundColor:"red",color:"white"}} onClick={handleDeleteItem}>Delete</Button>}
+      {<Button style={{backgroundColor:"blue",color:"white"}} onClick={handleLikeItem}>Like {card.likeCount}</Button>}
       </div>
       <div style={{float:"left"}}>
-      {<Button style={{backgroundColor:"teal",color:"white"}} onClick={handleUpdateItem}>Edit</Button>}
+      {<Button style={{backgroundColor:"green",color:"white"}} onClick={handleUpdateItem}>Edit</Button>}
+      </div>
+      <div style={{float:"left"}}>
+      {<Button style={{backgroundColor:"red",color:"white"}} onClick={handleDeleteItem}>Delete</Button>}
       </div>
       </div>
       <div style={{float:'right'}}>
