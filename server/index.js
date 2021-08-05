@@ -3,7 +3,7 @@ import cors from 'cors'
 import express from 'express'
 import mongoose from 'mongoose'
 import Cards from './routes/cards.js'
-
+import Auth from './routes/auth.js'
 const app=express();
 
 app.use(bodyParser.json({ limit: '30mb', extended: true }))
@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
 
 app.use('/cards',Cards);
+app.use('/auth',Auth)
 
 const CONNECTION_URL="mongodb+srv://Sakshi:sakshi@cluster0.aq31q.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 

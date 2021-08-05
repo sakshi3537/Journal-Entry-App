@@ -4,7 +4,7 @@ import '../../App.css'
 import loader from './gif/loader.gif'
 
 const PageLoader = () => {
-    const isLoading  = useSelector((state) => state.cardReducer.isLoading);
+    const isLoading  = useSelector((state) => state.loadingReducer);
     if (!isLoading) return null;
     return(
         <div className="loader-container">
