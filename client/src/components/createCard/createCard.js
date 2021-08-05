@@ -9,7 +9,7 @@ import FileBase64 from 'react-file-base64';
 
 const CreateCard = ({flagForCreateCard,setFlagForCreateCard,currentId,setCurrentId}) => {
   const dispatch = useDispatch();  
-  const cards= useSelector((state)=>state.cardReducer.cards);
+  const cards= useSelector((state)=>state.cardReducer);
   const currentCard=cards.find((card)=>(card._id===currentId));
   const [open, setOpen] = useState(flagForCreateCard);
   //console.log("h "+currentId);

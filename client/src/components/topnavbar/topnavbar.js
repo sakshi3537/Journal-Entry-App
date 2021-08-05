@@ -1,11 +1,13 @@
 import React, { Component, useState } from 'react'
 import { Input, Menu } from 'semantic-ui-react'
-
+import { useHistory } from 'react-router-dom'
 const Topnavbar = () => {
+  const history = useHistory();
   
-  const [active, setActive] = useState('Journey') 
+  const handleItemClick = () => {
+    history.push('/auth/signIn')
 
-  const handleItemClick = (e, { name }) => setActive(name);
+  }
 
     return (
       <Menu 
@@ -15,21 +17,24 @@ const Topnavbar = () => {
           name='Journey'
           style = {{color : "white",fontSize: "large"}}
           color="teal"
-          active={active === 'Journey'}
+          active= {true}
           onClick={handleItemClick}
         >Journey</Menu.Item>
         <Menu.Menu position='right'>
-          <Menu.Item >
-            <Input icon='search' placeholder='Search...' />
-          </Menu.Item>
           <Menu.Item
-            name='logout'
+            name='signin'
             style = {{color : "white", fontSize:"large"}}
             color="teal"
-            active={active === 'logout'}
             onClick={handleItemClick}>
-              Log out
+              Sign In
               </Menu.Item>
+              <Menu.Item
+            name='signup'
+            style = {{color : "white", fontSize:"large"}}
+            color="teal"
+            onClick={handleItemClick}>
+              Sign Up
+              </Menu.Item> 
         </Menu.Menu>
       </Menu>
     );
