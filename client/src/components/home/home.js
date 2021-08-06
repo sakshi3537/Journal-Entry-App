@@ -13,13 +13,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import PageLoader from '../loader/loader'
 import { useHistory } from 'react-router-dom';
 import { logOut } from '../../actions/auth';
-
+import LandingPage from '../landingPage/landingPage';
 
 const Home = () => {
     const [flagForCreateCard,setFlagForCreateCard]=useState(false);
     const [currentId,setCurrentId]=useState('');
     const history=useHistory();
     const dispatch=useDispatch();
+    const isLoggedIn= localStorage.getItem('profile');
+    if(!isLoggedIn)
+    history.push('/');
     const handleItemClick = () => {
       history.push('/home')
   
@@ -29,6 +32,7 @@ const Home = () => {
   
     }
     return (
+
         <div>
           <Menu 
       style = {{backgroundColor : "black"}}

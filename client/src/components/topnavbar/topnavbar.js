@@ -1,6 +1,6 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import { Input, Menu } from 'semantic-ui-react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 const Topnavbar = ({isSignUp,setIsSignUp}) => {
   const history = useHistory();
   const handleItemClick = () => {
@@ -9,18 +9,22 @@ const Topnavbar = ({isSignUp,setIsSignUp}) => {
   }
 
   const handleSignInClick = () => {
-    console.log(isSignUp);
-  console.log(typeof setIsSignUp);
       setIsSignUp(false);
       history.push('/auth');
   }
 
   const handleSignUpClick = () => {
-    console.log(isSignUp);
-  console.log(typeof setIsSignUp);
       setIsSignUp(true);
       history.push('/auth');
   }
+  const [signButtons,setSignButtons]=useState(false);
+  const location=useLocation();
+  useEffect(()=> {
+    if(location.pathname==='/auth')
+    setSignButtons(false);
+    if(location.pathname==='/')
+    setSignButtons(true);
+  },[location]);
 
     return (
       <Menu 
@@ -33,6 +37,7 @@ const Topnavbar = ({isSignUp,setIsSignUp}) => {
           active= {true}
           onClick={handleItemClick}
         >Journey</Menu.Item>
+        {(signButtons) && (
         <Menu.Menu position='right'>
           <Menu.Item
             name='signin'
@@ -49,6 +54,7 @@ const Topnavbar = ({isSignUp,setIsSignUp}) => {
               Sign Up
               </Menu.Item> 
         </Menu.Menu>
+        )}
       </Menu>
     );
 }

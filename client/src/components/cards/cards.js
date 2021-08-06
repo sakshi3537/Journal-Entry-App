@@ -19,4 +19,4 @@ const Cards = ({currentId,setCurrentId,flagForCreateCard,setFlagForCreateCard}) 
 );
 }
 
-export default Cards
+export default Cards;

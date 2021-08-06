@@ -14,6 +14,8 @@ const Auth = ({isSignUp,setIsSignUp}) => {
   const dispatch = useDispatch();  
   const [formData,setFormData] = useState({FirstName : '',LastName : '',Email : '', Password : '', ConfirmPassword : ''});
   const history = useHistory();
+  const error=useSelector((state) => state.authReducer.status);
+  const [errorStatement,setErrorStatement]=useState(error);
   const handleSubmit = async (e) => {  
       e.preventDefault();
       if(isSignUp){
@@ -25,24 +27,19 @@ const Auth = ({isSignUp,setIsSignUp}) => {
         setFormData({Email : '', Password : ''});
       
       }  
-      setIsSignUp(false);
   };
 
   const handleChange = async (e) => {
       setFormData({...formData,[e.target.name]:e.target.value});
-      //console.log(formData)
   }
 
   const handleClick = () => {
-
     setIsSignUp(!isSignUp) ;
-
+    setErrorStatement('');
   }
-
-  const errorStatement= useSelector((state) => state.authReducer);
   return (
     <>
-    <Topnavbar/>
+    <Topnavbar isSignUp={isSignUp} setIsSignUp={setIsSignUp}/>
     <div style={{display:"flex",alignItems:"center",justifyContent:"center",textAlign:"center"}}>
       <div className = "authStyles" style={{marginTop:"5%"}}>  
       <h2>{isSignUp ? ("Sign Up") : ("Sign In")} </h2>
@@ -77,7 +74,7 @@ const Auth = ({isSignUp,setIsSignUp}) => {
             <Form.Field >
              <Form.Input name = 'Password' label='Password' required type = 'password' placeholder='Password' style={{width: "100%" }} onChange = {handleChange} />
             </Form.Field>
-            <Form.Field>
+            <Form.Field style={{color:"red"}}>
               {errorStatement}
               </Form.Field>
             {

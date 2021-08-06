@@ -12,16 +12,10 @@ const CreateCard = ({flagForCreateCard,setFlagForCreateCard,currentId,setCurrent
   const cards= useSelector((state)=>state.cardReducer);
   const currentCard=cards.find((card)=>(card._id===currentId));
   const [open, setOpen] = useState(flagForCreateCard);
-  //console.log("h "+currentId);
-  //console.log(currentCard);
-  const cardTemplate={title: '', creator: '', tags: [], caption: '', imageFile: '',_id:''};
+  const cardTemplate={title: '', creator: JSON.parse(localStorage.getItem('profile')).result?._id,name: JSON.parse(localStorage.getItem('profile')).result?.name, tags: [], caption: '', imageFile: '',_id:''};
   const isCurrentIdNull=(currentId==="")?true:false;
-  const updatedCard=(isCurrentIdNull)?{}:{title:currentCard.title,creator:currentCard.creator,tags:currentCard.tags,caption:currentCard.caption,imageFile:currentCard.imageFile,_id:currentId};
-  //console.log(isCurrentIdNull);
-  //console.log(cardTemplate);
-  //console.log(updatedCard);
+  const updatedCard=(isCurrentIdNull)?{}:{title:currentCard.title,tags:currentCard.tags,caption:currentCard.caption,imageFile:currentCard.imageFile,_id:currentId};
   const [card, setCard] = useState(isCurrentIdNull?cardTemplate:updatedCard);
-  //console.log(card);
   useEffect(()=>{
     setOpen(flagForCreateCard);
   },[flagForCreateCard]);
@@ -38,7 +32,7 @@ const CreateCard = ({flagForCreateCard,setFlagForCreateCard,currentId,setCurrent
       dispatch(createCard(card));
       else
       dispatch(updateCard(card));
-      setCard({title: '', creator: '', tags: [], caption: '', imageFile: '',_id:''});
+      setCard({title: '', creator: JSON.parse(localStorage.getItem('profile')).result?._id,name: JSON.parse(localStorage.getItem('profile')).result?.name, tags: [], caption: '', imageFile: '',_id:''});
       setCurrentId('');
   };
   const modalTitle=(currentId!=='')? "Edit Card" : "Create Card";
@@ -58,10 +52,10 @@ const CreateCard = ({flagForCreateCard,setFlagForCreateCard,currentId,setCurrent
                 <label  >Title</label>
                 <input placeholder='Title' style={{width: "60%" }} onChange = {(e) => {setCard({...card, title : e.target.value})}} value={card.title}/>
             </Form.Field>
-            <Form.Field >
+             {/* <Form.Field >
             <label >Creator</label>
              <input placeholder='Creator' style={{width: "60%" }} onChange = {(e) => {setCard({...card, creator : e.target.value})}} value={card.creator}/>
-            </Form.Field>
+            </Form.Field>  */}
             <Form.Field >
             <label > Tags </label>
                 <Dropdown placeholder='Tags' multiple search selection options={dropdownValues} style={{width: "60%" }} onChange = {(e, { value }) => setCard({ ...card, tags: value })} value={card.tags} />

@@ -1,18 +1,18 @@
 import { SIGN_IN,LOG_OUT,ERROR } from "../constants/constants";
 
 
-const authReducer = (authData=null,action) => {
+const authReducer = (state= { profileData:null,token:null,status:null },action) => {
     switch(action.type){
         case SIGN_IN:
             localStorage.setItem('profile', JSON.stringify({ ...action?.payload }));
-            return null;
+            return {...state,profileData:action?.payload.result,token:action?.payload.token};
         case LOG_OUT:
             localStorage.clear();
-            return null;    
+            return {...state,profileData:null,token:null};    
         case ERROR:
-            return action?.payload; 
+            return {...state,profileData:null,token:null,status:action?.payload}; 
         default:
-            return authData;
+            return state;
     }
 
 }

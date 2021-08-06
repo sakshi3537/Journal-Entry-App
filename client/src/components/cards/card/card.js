@@ -27,19 +27,25 @@ const MyCard = ({card,currentId,setCurrentId,flagForCreateCard,setFlagForCreateC
       {card.tags.map((tag) => `#${tag} `)}
       </div>
       <div style={{float:"left"}}>
-      {<Button style={{backgroundColor:"blue",color:"white"}} onClick={handleLikeItem}>Like {card.likeCount}</Button>}
+      {<Button style={{backgroundColor:"blue",color:"white"}} onClick={handleLikeItem}>Like {card.likes.length}</Button>}
       </div>
       <div style={{float:"left"}}>
-      {<Button style={{backgroundColor:"green",color:"white"}} onClick={handleUpdateItem}>Edit</Button>}
+      {
+        (card.creator===JSON.parse(localStorage.getItem('profile')).result?._id) &&
+        (<Button style={{backgroundColor:"green",color:"white"}} onClick={handleUpdateItem}>Edit</Button>)
+        
+        
+        }
       </div>
       <div style={{float:"left"}}>
-      {<Button style={{backgroundColor:"red",color:"white"}} onClick={handleDeleteItem}>Delete</Button>}
+      {
+        (card.creator===JSON.parse(localStorage.getItem('profile')).result?._id) &&
+        (<Button style={{backgroundColor:"red",color:"white"}} onClick={handleDeleteItem}>Delete</Button>)
+      }
       </div>
       </div>
       <div style={{float:'right'}}>
       {
-        //console.log(new Date())
-        //moment(card.createdAt)
       moment(card.createdAt).fromNow()
      }
       </div>
@@ -50,7 +56,7 @@ const MyCard = ({card,currentId,setCurrentId,flagForCreateCard,setFlagForCreateC
     header= {card.title}
     image= {card.imageFile}
     
-    meta= {card.creator}
+    meta= {card.name}
     description={card.caption}
     color="teal"
     //For adding tags

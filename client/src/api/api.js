@@ -3,6 +3,14 @@ import axios from 'axios'
 const URL = "http://localhost:5000/cards"
 const AUTH_URL = "http://localhost:5000/auth"
 
+axios.interceptors.request.use((req) => {
+    if (localStorage.getItem('profile')) {
+      req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
+    }
+  
+    return req;
+  });
+
 const fetchCards = () => axios.get(URL);
 const createCard = (card) => axios.post(URL,card);
 //const fetchCardById = (id) => axios.get(`${URL}/${id}`);

@@ -9,7 +9,7 @@ import signup from '../../images/signup.png'
 const LandingPage = ({isSignUp,setIsSignUp}) => {
     return (
         <div>
-
+            
         <Topnavbar isSignUp={isSignUp} setIsSignUp={setIsSignUp}/>
             <Grid style = {{marginTop : '20px', textAlign :'center', alignItems : 'center',justifyContent:'center'}} >
             <Grid.Row>
