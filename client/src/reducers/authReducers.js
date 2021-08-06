@@ -1,14 +1,16 @@
-import { SIGN_IN,LOG_OUT } from "../constants/constants";
+import { SIGN_IN,LOG_OUT,ERROR } from "../constants/constants";
 
 
 const authReducer = (authData=null,action) => {
     switch(action.type){
         case SIGN_IN:
             localStorage.setItem('profile', JSON.stringify({ ...action?.payload }));
-            return action?.payload;
+            return null;
         case LOG_OUT:
             localStorage.clear();
-            return null;     
+            return null;    
+        case ERROR:
+            return action?.payload; 
         default:
             return authData;
     }
@@ -17,4 +19,4 @@ const authReducer = (authData=null,action) => {
 
 
 
-export default cardReducer;
+export default authReducer;

@@ -1,12 +1,25 @@
 import React, { Component, useState } from 'react'
 import { Input, Menu } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
-const Topnavbar = () => {
+const Topnavbar = ({isSignUp,setIsSignUp}) => {
   const history = useHistory();
-  
   const handleItemClick = () => {
-    history.push('/auth/signIn')
+    history.push('/')
 
+  }
+
+  const handleSignInClick = () => {
+    console.log(isSignUp);
+  console.log(typeof setIsSignUp);
+      setIsSignUp(false);
+      history.push('/auth');
+  }
+
+  const handleSignUpClick = () => {
+    console.log(isSignUp);
+  console.log(typeof setIsSignUp);
+      setIsSignUp(true);
+      history.push('/auth');
   }
 
     return (
@@ -25,14 +38,14 @@ const Topnavbar = () => {
             name='signin'
             style = {{color : "white", fontSize:"large"}}
             color="teal"
-            onClick={handleItemClick}>
+            onClick={handleSignInClick}>
               Sign In
               </Menu.Item>
               <Menu.Item
             name='signup'
             style = {{color : "white", fontSize:"large"}}
             color="teal"
-            onClick={handleItemClick}>
+            onClick={handleSignUpClick}>
               Sign Up
               </Menu.Item> 
         </Menu.Menu>

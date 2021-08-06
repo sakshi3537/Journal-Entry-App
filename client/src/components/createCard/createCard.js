@@ -45,32 +45,33 @@ const CreateCard = ({flagForCreateCard,setFlagForCreateCard,currentId,setCurrent
   const modalAction=(currentId!=='')? "Update Card" : "Create Card";
   return (
     <Modal
-      onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
+      onClose={() => {setOpen(false);setFlagForCreateCard(false);}}
+      onOpen={() => {setOpen(true);setFlagForCreateCard(true);}}
       open={open}
     >
       
       <Modal.Header className = "header">{modalTitle}</Modal.Header>
       <Modal.Content >
           
-      <Form className = "formStyles" onSubmit = {handleSubmit}>
+      <Form className = "formStyles"  style={{textAlign:"center"}} onSubmit = {handleSubmit}>
             <Form.Field >
                 <label  >Title</label>
-                <input placeholder='Title' style={{width: "370px" }} onChange = {(e) => {setCard({...card, title : e.target.value})}} value={card.title}/>
+                <input placeholder='Title' style={{width: "60%" }} onChange = {(e) => {setCard({...card, title : e.target.value})}} value={card.title}/>
             </Form.Field>
             <Form.Field >
             <label >Creator</label>
-             <input placeholder='Creator' style={{width: "370px" }} onChange = {(e) => {setCard({...card, creator : e.target.value})}} value={card.creator}/>
+             <input placeholder='Creator' style={{width: "60%" }} onChange = {(e) => {setCard({...card, creator : e.target.value})}} value={card.creator}/>
             </Form.Field>
             <Form.Field >
             <label > Tags </label>
-                <Dropdown placeholder='Tags' multiple search selection options={dropdownValues} style={{width: "370px" }} onChange = {(e, { value }) => setCard({ ...card, tags: value })} value={card.tags} />
+                <Dropdown placeholder='Tags' multiple search selection options={dropdownValues} style={{width: "60%" }} onChange = {(e, { value }) => setCard({ ...card, tags: value })} value={card.tags} />
             </Form.Field>
             <Form.Field >
                 <label >Caption</label>
-                <input placeholder='Caption' style={{width: "370px" }} onChange = {(e) => {setCard({...card, caption : e.target.value})}} value={card.caption}/>
+                <input placeholder='Caption' style={{width: "60%" }} onChange = {(e) => {setCard({...card, caption : e.target.value})}} value={card.caption}/>
             </Form.Field>
-            <Form.Field className = "imageStyles" style={{width:"47%"}}>
+            <Form.Field>
+            <label >Image</label>
              <FileBase64 type="file" multiple={false} onDone={({ base64 }) => setCard({ ...card, imageFile: base64 })} value={card.imageFile} />
             </Form.Field>
      </Form>

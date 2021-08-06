@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Form, Dropdown } from 'semantic-ui-react'
+import { Menu } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import '../../App.css'
 import dropdownValues from  '../../constants/dropdown.js'
@@ -9,15 +9,47 @@ import CreateCard from '../createCard/createCard.js'
 import MyCard from '../cards/card/card.js'
 import Cards from '../cards/cards.js'
 import { Grid } from 'semantic-ui-react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PageLoader from '../loader/loader'
+import { useHistory } from 'react-router-dom';
+import { logOut } from '../../actions/auth';
 
 
 const Home = () => {
     const [flagForCreateCard,setFlagForCreateCard]=useState(false);
     const [currentId,setCurrentId]=useState('');
+    const history=useHistory();
+    const dispatch=useDispatch();
+    const handleItemClick = () => {
+      history.push('/home')
+  
+    }
+    const handleLogOut = async () => {
+      dispatch(logOut(history));
+  
+    }
     return (
         <div>
+          <Menu 
+      style = {{backgroundColor : "black"}}
+      >
+        <Menu.Item
+          name='Journey'
+          style = {{color : "white",fontSize: "large"}}
+          color="teal"
+          active= {true}
+          onClick={handleItemClick}
+        >Journey</Menu.Item>
+        <Menu.Menu position='right'>
+          <Menu.Item
+            name='signin'
+            style = {{color : "white", fontSize:"large"}}
+            color="teal"
+            onClick={handleLogOut}>
+              Log Out
+              </Menu.Item>
+        </Menu.Menu>
+      </Menu>
             <Grid>
         <Grid.Row>
           <Grid.Column width={3}>

@@ -8,20 +8,19 @@ import FileBase64 from 'react-file-base64';
 import '../../App.css'
 import {signIn,signUp} from '../../actions/auth'
 import {useHistory} from 'react-router-dom';
+import Topnavbar from '../topnavbar/topnavbar.js';
 
-const Auth = () => {
+const Auth = ({isSignUp,setIsSignUp}) => {
   const dispatch = useDispatch();  
-  const [isSignUp,setIsSignUp] = useState(false);
-  const [formData,setFormData] = useState();
+  const [formData,setFormData] = useState({FirstName : '',LastName : '',Email : '', Password : '', ConfirmPassword : ''});
   const history = useHistory();
-
   const handleSubmit = async (e) => {  
       e.preventDefault();
       if(isSignUp){
         dispatch(signUp(formData,history));
         setFormData({FirstName : '',LastName : '',Email : '', Password : '', ConfirmPassword : ''});
       }  
-      else{  
+      else{ 
         dispatch(signIn(formData,history));
         setFormData({Email : '', Password : ''});
       
@@ -30,17 +29,22 @@ const Auth = () => {
   };
 
   const handleChange = async (e) => {
-      setFormData({...formData,[e.target.name]:e.target.value})
+      setFormData({...formData,[e.target.name]:e.target.value});
       //console.log(formData)
   }
 
   const handleClick = () => {
 
-    setIsSignUp(!isSignUp) 
+    setIsSignUp(!isSignUp) ;
 
   }
+
+  const errorStatement= useSelector((state) => state.authReducer);
   return (
-      <div className = "formStyles" style={{textAlign:"center"}}>  
+    <>
+    <Topnavbar/>
+    <div style={{display:"flex",alignItems:"center",justifyContent:"center",textAlign:"center"}}>
+      <div className = "authStyles" style={{marginTop:"5%"}}>  
       <h2>{isSignUp ? ("Sign Up") : ("Sign In")} </h2>
       <Form  onSubmit = {handleSubmit}>{
           (isSignUp) && (
@@ -52,6 +56,7 @@ const Auth = () => {
         label='First name'
         name = 'FirstName'
         placeholder='First name'
+        onChange={handleChange}
       />
       <Form.Input
         fluid
@@ -60,41 +65,44 @@ const Auth = () => {
         label='Last name'
         name='LastName'
         placeholder='Last name'
+        onChange={handleChange}
       />
     </Form.Group>
     
       )
           }
             <Form.Field >
-                <label  >Email</label>
-                <input name = 'Email' required type = 'text' placeholder='Email' style={{width: "370px" }} onChange = {handleChange} />
+                <Form.Input name = 'Email' label='Email' required type = 'text' placeholder='Email' style={{width: "100%" }} onChange = {handleChange} />
             </Form.Field>
             <Form.Field >
-            <label >Password</label>
-             <input name = 'Password' required type = 'password' placeholder='Password' style={{width: "370px" }} onChange = {handleChange} />
+             <Form.Input name = 'Password' label='Password' required type = 'password' placeholder='Password' style={{width: "100%" }} onChange = {handleChange} />
             </Form.Field>
+            <Form.Field>
+              {errorStatement}
+              </Form.Field>
             {
                 isSignUp && (
                 <Form.Field >
-                    <label >Confirm Password</label>
-                     <input name = 'ConfirmPassword' required type = 'password' placeholder='Confirm Password' style={{width: "370px" }} onChange = {handleChange} />
+                     <Form.Input name = 'ConfirmPassword' label='Confirm Password' required type = 'password' placeholder='Confirm Password' style={{width: "100%" }} onChange = {handleChange} />
                     </Form.Field>
                     )
             
             } 
-            <Button type = 'submit' style={{width: "370px" }}>{
+            <Button type = 'submit' style={{width: "100%" }}>{
                 isSignUp ? ("Sign Up") : ("Sign In")           }
                 
             </Button>
             
      </Form>
-     <Button style={{width: "370px" ,marginTop: "5px"}} onClick = {handleClick}>{
+     <Button style={{width: "100%" ,marginTop: "5px"}} onClick = {handleClick}>{
          isSignUp ?  ("Already have an account? Sign In") : ("Don't Have an Account? Sign Up")
      }
                 
             </Button>
     </div>
-  )
+    </div>
+    </>
+  );
 
 }
 

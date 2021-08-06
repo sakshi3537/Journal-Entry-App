@@ -10,7 +10,7 @@ const deleteCard = (id) => axios.delete(`${URL}/${id}`);
 const updateCard = (card) => axios.patch(`${URL}/${card._id}`,card);
 const likeCard = (id) => axios.patch(`${URL}/${id}/like`);
 
-const signIn = (formData) => {axios.post(`${AUTH_URL}/signIn`,formData); console.log("api");}
+const signIn = (formData) => axios.post(`${AUTH_URL}/signIn`,formData);
 const signUp = (formData) => axios.post(`${AUTH_URL}/signUp`,formData)
 
 
