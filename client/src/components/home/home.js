@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Button } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import '../../App.css'
 import dropdownValues from  '../../constants/dropdown.js'
@@ -15,6 +15,8 @@ import { useHistory } from 'react-router-dom';
 import { logOut } from '../../actions/auth';
 import LandingPage from '../landingPage/landingPage';
 import decode from 'jwt-decode';
+import SearchBar from '../searchbar/searchbar.js'
+import { fetchAllUsers,addFriend } from '../../actions/actions';
 
 const Home = () => {
     const [flagForCreateCard,setFlagForCreateCard]=useState(false);
@@ -22,6 +24,29 @@ const Home = () => {
     const history=useHistory();
     const dispatch=useDispatch();
     const isLoggedIn= localStorage.getItem('profile');
+    const users = useSelector((state) => state.userReducer);
+  //   const { search } = window.location;
+  //   const query = new URLSearchParams(search).get('s');
+  //   const [searchQuery, setSearchQuery] = useState(query || '');
+
+
+    
+  //   const userdata = useSelector((state) => state.userReducer);
+  //   const users = userdata.map((data)=> data.name);
+  //   dispatch(fetchAllUsers());
+  //   const filterUsers = (users, query) => {
+  //     if (!query) {
+  //         return users;
+  //     }
+  
+  //     return users.filter((user) => {
+  //         const userName = user.toLowerCase();
+  //         return userName.includes(query);
+  //     });
+  //  };
+  //   const filteredUsers = filterUsers(users, searchQuery);
+    
+    
     if(!isLoggedIn)
     history.push('/');
     const handleItemClick = () => {
@@ -32,6 +57,11 @@ const Home = () => {
       dispatch(logOut(history));
   
     }
+    const handleAddFriend = async() => {
+
+
+    }
+
 
     return (
 
@@ -66,9 +96,14 @@ const Home = () => {
           <Cards currentId={currentId} setCurrentId={setCurrentId} flagForCreateCard={flagForCreateCard} setFlagForCreateCard={setFlagForCreateCard}/>
           </Grid.Column>
           <Grid.Column width={5}>
-            {
-              
-            }
+          <div>
+            <SearchBar/>
+            {users.map((user) => (
+                    <li >{user.name}  <Button onClick={() => dispatch(addFriend(user._id))}> Add Friend</Button></li>
+                   
+                ))}
+
+        </div>
           </Grid.Column>
         </Grid.Row>
       </Grid>

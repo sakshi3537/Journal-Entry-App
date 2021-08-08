@@ -27,20 +27,20 @@ const MyCard = ({card,currentId,setCurrentId,flagForCreateCard,setFlagForCreateC
       {card.tags.map((tag) => `#${tag} `)}
       </div>
       <div style={{float:"left"}}>
-      {<Button style={{backgroundColor:"blue",color:"white"}} onClick={handleLikeItem}>Like {card.likes.length}</Button>}
+      {<Button style={{backgroundColor:"blue",color:"white"}} onClick={handleLikeItem}><Icon name="thumbs up" />{card.likes.length}</Button>}
+      
       </div>
       <div style={{float:"left"}}>
       {
         (card.creator===JSON.parse(localStorage.getItem('profile'))?.result?._id) &&
         (<Button style={{backgroundColor:"green",color:"white"}} onClick={handleUpdateItem}>Edit</Button>)
         
-        
         }
       </div>
       <div style={{float:"left"}}>
       {
         (card.creator===JSON.parse(localStorage.getItem('profile'))?.result?._id) &&
-        (<Button style={{backgroundColor:"red",color:"white"}} onClick={handleDeleteItem}>Delete</Button>)
+        (<Button style={{backgroundColor:"red",color:"white"}} onClick={handleDeleteItem}>Delete </Button>)
       }
       </div>
       </div>
