@@ -1,5 +1,5 @@
 import * as api from '../api/api.js'
-import { FETCH_ALL, LOADING_FALSE, LOADING_TRUE} from "../constants/constants";
+import { FETCH_ALL, LOADING_FALSE, LOADING_TRUE,FETCH_ALL_USERS,FETCH_USERS} from "../constants/constants";
 
 const fetchCards = () => async (dispatch) => {
     try {
@@ -64,6 +64,44 @@ const likeCard = (id) => async(dispatch) => {
     }
 }
 
+const fetchAllUsers = () => async (dispatch) => {
+    try {
+        dispatch({type:LOADING_TRUE});
+        const {data} = await api.fetchAllUsers();
+        const users=data;
+      //  console.log(users);
+      //  console.log(cards);
+        dispatch({type : FETCH_ALL_USERS, payload : users});
+        dispatch({type:LOADING_FALSE});
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-export {fetchCards,createCard,deleteCard,updateCard,likeCard};
+const fetchUsers = (searchQuery) => async (dispatch) => {
+    try {
+        dispatch({type:LOADING_TRUE});
+        const {data} = await api.fetchUsers(searchQuery);
+        const users=data;
+      //  console.log(users);
+      //  console.log(cards);
+        dispatch({type : FETCH_USERS, payload : users});
+        dispatch({type:LOADING_FALSE});
+    } catch (error) {
+        console.log(error);
+    }
+}
+const addFriend = (id) => async(dispatch) => {
+    try {
+       
+        dispatch({type:LOADING_TRUE});
+        await api.addFriend(id);
+        dispatch({type:LOADING_FALSE});
+        dispatch(fetchCards());
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export {fetchCards,createCard,deleteCard,updateCard,likeCard,fetchAllUsers,fetchUsers,addFriend};
 
