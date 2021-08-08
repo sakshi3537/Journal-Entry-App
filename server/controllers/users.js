@@ -30,20 +30,23 @@ const addFriend= async (req,res) => {
         res.json({ message: "Unauthenticated" });
       }
       else{
-    
-    const {id}= req.params;
-    try {
-        const user = await userModel.findById(req.userId);
-        const index = user.friends.findIndex((tid) => tid ===String(id));
+          
+        const {id}= req.params;
+           
+         try {
+            const user = await userModel.findById(req.userId);
+            const index = user.friends.findIndex((tid) => tid ===String(id));
+          
             if (index === -1) {
                 user.friends.push(id);
             } else {
                 user.friends = user.friends.filter((tid) => tid !== String(id));
               }
             
-        const updatedUser=await userModel.findByIdAndUpdate(id,user,{new:true});
+            const updatedUser=await userModel.findByIdAndUpdate(req.userId,user,{new:true});
+            
         res.status(200).json(updatedUser);
-    } catch (error) {
+        } catch (error) {
         res.status(404).json(error);
     }
 }

@@ -6,5 +6,5 @@ import {fetchAllUsers,fetchUsers,addFriend} from '../controllers/users.js';
 router.get('/allUsers',auth,fetchAllUsers);
 
 router.get('/users/:searchQuery',auth,fetchUsers);
-router.get('/addFriend/:id',auth,addFriend);
+router.patch('/addFriend/:id',auth,addFriend);
 export default router;

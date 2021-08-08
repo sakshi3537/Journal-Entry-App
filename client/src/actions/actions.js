@@ -93,7 +93,7 @@ const fetchUsers = (searchQuery) => async (dispatch) => {
 }
 const addFriend = (id) => async(dispatch) => {
     try {
-       
+        
         dispatch({type:LOADING_TRUE});
         await api.addFriend(id);
         dispatch({type:LOADING_FALSE});

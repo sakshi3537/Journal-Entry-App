@@ -1,12 +1,39 @@
 import mongoose from 'mongoose';
 import cardModel from '../Models/cardsModel.js'
+import userModel from '../Models/userModel.js';
 
+
+function flatten(arr) {
+    return arr.reduce(function (flat, toFlatten) {
+      return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
+    }, []);
+  }
 
 const fetchCards= async (req,res) => {
     try {
-        const cards= await cardModel.find();
-        cards.reverse();
-        res.status(200).json(cards);
+        const users= await userModel.find();
+        const cards = await cardModel.find();
+       const tempUsers = users.filter((user)=> user.friends.includes(req.userId));
+       const result = [];
+       console.log("start");
+       for(let i=0;i<tempUsers.length;i++){
+        result.push(cards.filter((card)=> card.creator !== tempUsers[i]._id));
+        console.log("2==================");
+    }
+    
+   // console.log(result[0])
+    newres =[]
+    for(let j = 0; j < result.length; j++)
+    {
+        for(let k=0;k<result[j].length;k++)
+          newres = newres.push(result[j][k]); 
+    }
+    //res=flatten(res);
+    console.log("333333333333333333333")
+    console.log(newres);
+      
+        newres.reverse();
+        res.status(200).json(newres);
     } catch (error) {
         res.status(404).json(error);
     }
