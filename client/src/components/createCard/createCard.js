@@ -5,8 +5,8 @@ import 'semantic-ui-css/semantic.min.css';
 import dropdownValues from  '../../constants/dropdown.js'
 import {createCard, updateCard} from '../../actions/actions.js'
 import FileBase64 from 'react-file-base64';
-import Cropper from 'react-cropper';
-import 'react-crop/cropper.css';
+import homepage from '../../images/home.png'
+//import Compressor from 'compressjs'
 
 
 const CreateCard = ({flagForCreateCard,setFlagForCreateCard,currentId,setCurrentId}) => {
@@ -39,38 +39,27 @@ const CreateCard = ({flagForCreateCard,setFlagForCreateCard,currentId,setCurrent
   };
   const modalTitle=(currentId!=='')? "Edit Card" : "Create Card";
   const modalAction=(currentId!=='')? "Update Card" : "Create Card";
-  const [imageState,setImageState]=useState({
-    image: null,
-    previewURL: null
-    });
-const imageRefFile=useRef(null);
-const cropFile=useRef(null);
-  const crop= () => {
-       let image = cropFile.cropImage()
-       setImageState({
-           previewUrl: window.URL.createObjectURL(image)
-       })
-   }
 
-  const clear= () => {
-    imageRefFile.current.value = null
-    setImageState({
-        previewUrl: null,
-        image: null
-    })
-}
-  const onChange=(e) => {
-    setCard({...card, imageFile : e.target.value})
-      setImageState({
-          image: e.target.value
-      })
-  }
-  const imageLoaded= (img=imageState.image) => {
-    if (img.naturalWidth  &&
-        img.naturalHeight ) {
-        crop()
-    }
-}
+  // const compress = new Compress()
+
+  // async function resizeImageFn(file) {
+
+  //   const resizedImage = await compress.compress([file], {
+  //     size: 2, // the max size in MB, defaults to 2MB
+  //     quality: 1, // the quality of the image, max is 1,
+  //     maxWidth: 300, // the max width of the output image, defaults to 1920px
+  //     maxHeight: 300, // the max height of the output image, defaults to 1920px
+  //     resize: true // defaults to true, set false if you do not want to resize the image width and height
+  //   })
+  //   const img = resizedImage[0];
+  //   const base64str = img.data
+  //   const imgExt = img.ext
+  //   const resizedFiile = Compress.convertBase64ToFile(base64str, imgExt)
+  //   return resizedFiile;
+  // }
+
+  // resizeImageFn({homepage});
+
   return (
     <Modal
       onClose={() => {setOpen(false);setFlagForCreateCard(false);}}
@@ -100,34 +89,8 @@ const cropFile=useRef(null);
             </Form.Field>
             <Form.Field>
             <label >Image</label>
-             <input ref={imageRefFile} type='file' onChange={onChange} value={card.imageFile}/> 
- 
-             {
+            <FileBase64 type="file" multiple={false} onDone={({ base64 }) => setCard({ ...card, imageFile: base64 })} value={card.imageFile}/>
 
-                  imageState.image &&
-
-                  <div>
-                      <Cropper
-                          ref={cropFile}
-                          image={imageState.image}
-                          width={100}
-                          height={80}
-                          onImageLoaded={imageLoaded}
-                      />
-
-                      <button onClick={crop}>Crop</button>
-                      <button onClick={clear}>Clear</button>
-                  </div>
-
-              } 
-
-               {
-                  imageState.previewUrl &&
-
-                  <img src={imageState.previewUrl} />
-              } 
-
-             <FileBase64 type="file" multiple={false} onDone={({ base64 }) => setCard({ ...card, imageFile: base64 })} value={card.imageFile}/>
             </Form.Field>
      </Form>
 

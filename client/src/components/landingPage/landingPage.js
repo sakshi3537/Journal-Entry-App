@@ -5,8 +5,13 @@ import home from '../../images/home.png'
 import createCard from '../../images/createCard.png'
 import signin from '../../images/signin.png'
 import signup from '../../images/signup.png'
+import { useHistory } from 'react-router-dom';
 
 const LandingPage = ({isSignUp,setIsSignUp}) => {
+    const history=useHistory();
+    const isLoggedIn= localStorage.getItem('profile');
+    if(isLoggedIn)
+    history.push('/home');
     return (
         <div>
             

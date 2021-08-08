@@ -17,7 +17,7 @@ const signIn= async (req,res) => {
             res.status(200).json( "Wrong Password");
             }
             else{
-                const token = jwt.sign({ email: existingUser.email, id : existingUser._id }, secret, { expiresIn: "1h" });    
+                const token = jwt.sign({ email: existingUser.email, id : existingUser._id }, secret);    
                 res.status(200).json({result: existingUser,token});    
             }
         })
@@ -41,7 +41,7 @@ const signUp= async (req,res) => {
             const hashedPassword= await bcrypt.hash(Password,12);
             const newUser = new userModel({name :  `${FirstName} ${LastName}`, email : Email, password : hashedPassword});    
             await newUser.save();
-            const token = jwt.sign({ email: Email, id: newUser._id }, secret, { expiresIn: "1h" });    
+            const token = jwt.sign({ email: Email, id: newUser._id }, secret);    
             res.status(200).json({result: newUser, token}); 
         }
     } catch (error) {

@@ -14,6 +14,7 @@ import PageLoader from '../loader/loader'
 import { useHistory } from 'react-router-dom';
 import { logOut } from '../../actions/auth';
 import LandingPage from '../landingPage/landingPage';
+import decode from 'jwt-decode';
 
 const Home = () => {
     const [flagForCreateCard,setFlagForCreateCard]=useState(false);
@@ -31,6 +32,7 @@ const Home = () => {
       dispatch(logOut(history));
   
     }
+
     return (
 
         <div>
