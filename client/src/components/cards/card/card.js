@@ -31,7 +31,7 @@ const MyCard = ({card,currentId,setCurrentId,flagForCreateCard,setFlagForCreateC
       </div>
       <div style={{float:"left"}}>
       {
-        (card.creator===JSON.parse(localStorage.getItem('profile')).result?._id) &&
+        (card.creator===JSON.parse(localStorage.getItem('profile'))?.result?._id) &&
         (<Button style={{backgroundColor:"green",color:"white"}} onClick={handleUpdateItem}>Edit</Button>)
         
         
@@ -39,7 +39,7 @@ const MyCard = ({card,currentId,setCurrentId,flagForCreateCard,setFlagForCreateC
       </div>
       <div style={{float:"left"}}>
       {
-        (card.creator===JSON.parse(localStorage.getItem('profile')).result?._id) &&
+        (card.creator===JSON.parse(localStorage.getItem('profile'))?.result?._id) &&
         (<Button style={{backgroundColor:"red",color:"white"}} onClick={handleDeleteItem}>Delete</Button>)
       }
       </div>

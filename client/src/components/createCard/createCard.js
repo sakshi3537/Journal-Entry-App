@@ -5,6 +5,8 @@ import 'semantic-ui-css/semantic.min.css';
 import dropdownValues from  '../../constants/dropdown.js'
 import {createCard, updateCard} from '../../actions/actions.js'
 import FileBase64 from 'react-file-base64';
+import Cropper from 'react-cropper';
+import 'react-crop/cropper.css';
 
 
 const CreateCard = ({flagForCreateCard,setFlagForCreateCard,currentId,setCurrentId}) => {
@@ -12,7 +14,7 @@ const CreateCard = ({flagForCreateCard,setFlagForCreateCard,currentId,setCurrent
   const cards= useSelector((state)=>state.cardReducer);
   const currentCard=cards.find((card)=>(card._id===currentId));
   const [open, setOpen] = useState(flagForCreateCard);
-  const cardTemplate={title: '', creator: JSON.parse(localStorage.getItem('profile')).result?._id,name: JSON.parse(localStorage.getItem('profile')).result?.name, tags: [], caption: '', imageFile: '',_id:''};
+  const cardTemplate={title: '', creator: JSON.parse(localStorage.getItem('profile'))?.result?._id,name: JSON.parse(localStorage.getItem('profile'))?.result?.name, tags: [], caption: '', imageFile: '',_id:''};
   const isCurrentIdNull=(currentId==="")?true:false;
   const updatedCard=(isCurrentIdNull)?{}:{title:currentCard.title,tags:currentCard.tags,caption:currentCard.caption,imageFile:currentCard.imageFile,_id:currentId};
   const [card, setCard] = useState(isCurrentIdNull?cardTemplate:updatedCard);
@@ -32,11 +34,43 @@ const CreateCard = ({flagForCreateCard,setFlagForCreateCard,currentId,setCurrent
       dispatch(createCard(card));
       else
       dispatch(updateCard(card));
-      setCard({title: '', creator: JSON.parse(localStorage.getItem('profile')).result?._id,name: JSON.parse(localStorage.getItem('profile')).result?.name, tags: [], caption: '', imageFile: '',_id:''});
+      setCard({title: '', creator: JSON.parse(localStorage.getItem('profile'))?.result?._id,name: JSON.parse(localStorage.getItem('profile'))?.result?.name, tags: [], caption: '', imageFile: '',_id:''});
       setCurrentId('');
   };
   const modalTitle=(currentId!=='')? "Edit Card" : "Create Card";
   const modalAction=(currentId!=='')? "Update Card" : "Create Card";
+  const [imageState,setImageState]=useState({
+    image: null,
+    previewURL: null
+    });
+const imageRefFile=useRef(null);
+const cropFile=useRef(null);
+  const crop= () => {
+       let image = cropFile.cropImage()
+       setImageState({
+           previewUrl: window.URL.createObjectURL(image)
+       })
+   }
+
+  const clear= () => {
+    imageRefFile.current.value = null
+    setImageState({
+        previewUrl: null,
+        image: null
+    })
+}
+  const onChange=(e) => {
+    setCard({...card, imageFile : e.target.value})
+      setImageState({
+          image: e.target.value
+      })
+  }
+  const imageLoaded= (img=imageState.image) => {
+    if (img.naturalWidth  &&
+        img.naturalHeight ) {
+        crop()
+    }
+}
   return (
     <Modal
       onClose={() => {setOpen(false);setFlagForCreateCard(false);}}
@@ -66,7 +100,34 @@ const CreateCard = ({flagForCreateCard,setFlagForCreateCard,currentId,setCurrent
             </Form.Field>
             <Form.Field>
             <label >Image</label>
-             <FileBase64 type="file" multiple={false} onDone={({ base64 }) => setCard({ ...card, imageFile: base64 })} value={card.imageFile} />
+             <input ref={imageRefFile} type='file' onChange={onChange} value={card.imageFile}/> 
+ 
+             {
+
+                  imageState.image &&
+
+                  <div>
+                      <Cropper
+                          ref={cropFile}
+                          image={imageState.image}
+                          width={100}
+                          height={80}
+                          onImageLoaded={imageLoaded}
+                      />
+
+                      <button onClick={crop}>Crop</button>
+                      <button onClick={clear}>Clear</button>
+                  </div>
+
+              } 
+
+               {
+                  imageState.previewUrl &&
+
+                  <img src={imageState.previewUrl} />
+              } 
+
+             <FileBase64 type="file" multiple={false} onDone={({ base64 }) => setCard({ ...card, imageFile: base64 })} value={card.imageFile}/>
             </Form.Field>
      </Form>
 

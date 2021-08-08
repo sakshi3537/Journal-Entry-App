@@ -9,6 +9,7 @@ import '../../App.css'
 import {signIn,signUp} from '../../actions/auth'
 import {useHistory} from 'react-router-dom';
 import Topnavbar from '../topnavbar/topnavbar.js';
+import { CLEAR_ERROR } from '../../constants/constants.js';
 
 const Auth = ({isSignUp,setIsSignUp}) => {
   const dispatch = useDispatch();  
@@ -16,6 +17,9 @@ const Auth = ({isSignUp,setIsSignUp}) => {
   const history = useHistory();
   const error=useSelector((state) => state.authReducer.status);
   const [errorStatement,setErrorStatement]=useState(error);
+  useEffect(()=>{
+    setErrorStatement(error);
+  },[error]);
   const handleSubmit = async (e) => {  
       e.preventDefault();
       if(isSignUp){
@@ -35,7 +39,7 @@ const Auth = ({isSignUp,setIsSignUp}) => {
 
   const handleClick = () => {
     setIsSignUp(!isSignUp) ;
-    setErrorStatement('');
+    dispatch({type:CLEAR_ERROR});
   }
   return (
     <>
@@ -54,6 +58,7 @@ const Auth = ({isSignUp,setIsSignUp}) => {
         name = 'FirstName'
         placeholder='First name'
         onChange={handleChange}
+        value={formData.FirstName}
       />
       <Form.Input
         fluid
@@ -63,28 +68,29 @@ const Auth = ({isSignUp,setIsSignUp}) => {
         name='LastName'
         placeholder='Last name'
         onChange={handleChange}
+        value={formData.LastName}
       />
     </Form.Group>
     
       )
           }
             <Form.Field >
-                <Form.Input name = 'Email' label='Email' required type = 'text' placeholder='Email' style={{width: "100%" }} onChange = {handleChange} />
+                <Form.Input name = 'Email' label='Email' required type = 'text' placeholder='Email' style={{width: "100%" }} onChange = {handleChange} value={formData.Email}/>
             </Form.Field>
             <Form.Field >
-             <Form.Input name = 'Password' label='Password' required type = 'password' placeholder='Password' style={{width: "100%" }} onChange = {handleChange} />
+             <Form.Input name = 'Password' label='Password' required type = 'password' placeholder='Password' style={{width: "100%" }} onChange = {handleChange} value={formData.Password}/>
             </Form.Field>
-            <Form.Field style={{color:"red"}}>
-              {errorStatement}
-              </Form.Field>
             {
                 isSignUp && (
                 <Form.Field >
-                     <Form.Input name = 'ConfirmPassword' label='Confirm Password' required type = 'password' placeholder='Confirm Password' style={{width: "100%" }} onChange = {handleChange} />
+                     <Form.Input name = 'ConfirmPassword' label='Confirm Password' required type = 'password' placeholder='Confirm Password' style={{width: "100%" }} onChange = {handleChange} value={formData.ConfirmPassword}/>
                     </Form.Field>
                     )
             
             } 
+            <Form.Field style={{color:"red"}}>
+              {errorStatement}
+              </Form.Field>
             <Button type = 'submit' style={{width: "100%" }}>{
                 isSignUp ? ("Sign Up") : ("Sign In")           }
                 

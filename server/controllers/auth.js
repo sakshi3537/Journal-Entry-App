@@ -32,7 +32,7 @@ const signIn= async (req,res) => {
 const signUp= async (req,res) => {
     try {
         const {FirstName,LastName,Email,Password,ConfirmPassword} = req.body;
-        const existingUser = await userModel.findOne({Email});
+        const existingUser = await userModel.findOne({email:Email});
         if(existingUser)
             res.status(200).json( "User Already exists");
         else if(ConfirmPassword!==Password)
