@@ -39,7 +39,9 @@ const signUp= async (req,res) => {
             res.status(200).json("Passwords do not match");
         else{
             const hashedPassword= await bcrypt.hash(Password,12);
-            const newUser = new userModel({name :  `${FirstName} ${LastName}`, email : Email, password : hashedPassword});    
+            const newUser = new userModel({name :  `${FirstName} ${LastName}`, email : Email, password : hashedPassword});  
+            newUser.friends.push(newUser._id);
+            //console.log(newUser)  
             await newUser.save();
             const token = jwt.sign({ email: Email, id: newUser._id }, secret);    
             res.status(200).json({result: newUser, token}); 
