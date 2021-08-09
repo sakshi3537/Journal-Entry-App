@@ -53,7 +53,7 @@ const Home = () => {
     }
     const handleLogOut = async () => {
       dispatch(logOut(history));
-  
+      dispatch({type:CLEAR_SEARCH_RESULTS,payload:''});
     }
 
     const [searchQuery,setSearchQuery] = useState('');
