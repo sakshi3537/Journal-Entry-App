@@ -58,7 +58,7 @@ const likeCard = (id) => async(dispatch) => {
         dispatch({type:LOADING_TRUE});
         await api.likeCard(id);
         dispatch({type:LOADING_FALSE});
-        dispatch(fetchMyCards());
+        dispatch(fetchCards());
     } catch (error) {
         console.log(error);
     }

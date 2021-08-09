@@ -8,7 +8,7 @@ const fetchCards= async (req,res) => {
     try {
         const users= await userModel.find();
         const cards = await cardModel.find();
-       const tempUsers = users.filter((user)=> user.friends.includes(req.userId));
+       const tempUsers = users.filter((user)=> (user.friends.includes(req.userId) && user._id!=req.userId));
        let desiredCards = [];
        for(let i=0;i<tempUsers.length;i++){
         desiredCards.push(cards.filter((card)=> (card.creator === String(tempUsers[i]._id))));

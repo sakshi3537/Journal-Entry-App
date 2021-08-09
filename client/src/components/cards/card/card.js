@@ -24,7 +24,7 @@ const MyCard = ({card,currentId,setCurrentId,flagForCreateCard,setFlagForCreateC
   const extra = (
     <div>
       <div className = "imageCenter" >{
-        card.imageFile && <img style={{width:"333px",height:"333px",borderRadius:"80px",border:"teal 5px solid"}}
+        card.imageFile && <img style={{width:"100%",height:"100%",borderRadius:"10%"}}
         src={card.imageFile}
         />
       }
@@ -35,7 +35,9 @@ const MyCard = ({card,currentId,setCurrentId,flagForCreateCard,setFlagForCreateC
       {card.tags.map((tag) => `#${tag} `)}
       </div>
       <div style={{float:"left"}}>
-      {<Button style={{backgroundColor:"blue",color:"white"}} onClick={handleLikeItem}><Icon name="thumbs up" />{card.likes.length}</Button>}
+      { (card.creator!==JSON.parse(localStorage.getItem('profile'))?.result?._id) &&
+        (<Button style={{backgroundColor:"blue",color:"white"}} onClick={handleLikeItem}><Icon name="thumbs up" />{card.likes.length}</Button>)
+      }
       
       </div>
       <div style={{float:"left"}}>

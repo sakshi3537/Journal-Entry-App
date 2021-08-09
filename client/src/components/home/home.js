@@ -5,7 +5,7 @@ import '../../App.css'
 import dropdownValues from  '../../constants/dropdown.js'
 import { CLEAR_SEARCH_RESULTS } from '../../constants/constants';
 import {CLEAR_FRIEND_STATUS} from '../../constants/constants';
-import Sidebar from '../sidebar/sidebar.js'
+import MenuButtons from '../menuButtons/menuButtons.js'
 import CreateCard from '../createCard/createCard.js'
 import MyCard from '../cards/card/card.js'
 import Cards from '../cards/cards.js'
@@ -61,7 +61,7 @@ const Home = () => {
       
         
           <Menu 
-      style = {{backgroundColor : "black"}}
+      style = {{backgroundColor : "black",marginBottom:"0",borderRadius:"0"}}
       >
         <Menu.Item
           name='Journey'
@@ -73,8 +73,9 @@ const Home = () => {
         <Menu.Menu position='right'>
        
         <div>
-      <Image src= {loggedInUserProfilePic} style={{marginTop: "11%",width:"40px",height:"40px",borderRadius:"50%",border:"teal 2px solid"}} />
-      
+         { (loggedInUserProfilePic) &&
+      (<Image src= {loggedInUserProfilePic} style={{marginTop: "11%",width:"40px",height:"40px",borderRadius:"50%",border:"teal 2px solid"}} />)
+         }
     </div>
     <Menu.Item
             name='loggedInUser'
@@ -93,16 +94,14 @@ const Home = () => {
               </Menu.Item>
         </Menu.Menu>
       </Menu>
+      <MenuButtons flagForCreateCard={flagForCreateCard} setFlagForCreateCard={setFlagForCreateCard}/>
+      <CreateCard flagForCreateCard={flagForCreateCard} setFlagForCreateCard={setFlagForCreateCard} currentId={currentId} setCurrentId={setCurrentId}/>
             <Grid>
         <Grid.Row>
-          <Grid.Column width={4}>
-          <Sidebar flagForCreateCard={flagForCreateCard} setFlagForCreateCard={setFlagForCreateCard}/>
-          <CreateCard flagForCreateCard={flagForCreateCard} setFlagForCreateCard={setFlagForCreateCard} currentId={currentId} setCurrentId={setCurrentId}/>
-          </Grid.Column>
-          <Grid.Column width={8}>
+          <Grid.Column width={10}>
           <Cards currentId={currentId} setCurrentId={setCurrentId} flagForCreateCard={flagForCreateCard} setFlagForCreateCard={setFlagForCreateCard}/>
           </Grid.Column>
-          <Grid.Column width={4}>
+          <Grid.Column width={6}>
           <div>
             <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
             {(friendStatus==='Friend Added Successfully')?
@@ -112,9 +111,10 @@ const Home = () => {
                     
                 
                     <li style={{listStyleType:"none",marginTop:"2%",marginBottom:"2%",marginRight:"4%",paddingLeft:"2%",outline:".1rem solid blue"}}>
-                
-                  <Image src= {loggedInUserProfilePic} avatar style={{marginTop: "1%",marginBottom: "1%",width:"30px",height:"30px",borderRadius:"50%",border:"teal 2px solid"} } />
-                
+                {
+                  (user.profilePic) &&
+                  (<Image src= {user.profilePic} avatar style={{marginTop: "1%",marginBottom: "1%",width:"30px",height:"30px",borderRadius:"50%",border:"teal 2px solid"} } />)
+                }
                   {user.name} 
                       <Button style={{backgroundColor:"white",color:"blue"}} onClick={() => {
                         (JSON.parse(localStorage.getItem('profile'))?.result?.friends.includes(user._id))
