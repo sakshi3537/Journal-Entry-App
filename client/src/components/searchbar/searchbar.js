@@ -4,8 +4,7 @@ import 'semantic-ui-css/semantic.min.css';
 import { useDispatch } from 'react-redux';
 import {fetchUsers} from '../../actions/actions'
 
-const Searchbar = () => {
-    const [searchQuery,setSearchQuery] = useState('');
+const Searchbar = ({searchQuery,setSearchQuery}) => {
     const dispatch = useDispatch();
         // const history = useHistory();
     // const onSubmit = e => {
@@ -22,9 +21,9 @@ const Searchbar = () => {
         <Form onSubmit = {handleSubmit}>
         <Form.Field >
             <label>Search Users</label>
-            <input type="text" name="s" placeholder='Search...' style={{width: "60%" }} onChange = {(e) => setSearchQuery(e.target.value)} value={searchQuery}/>
+            <input type="text" required name="s" placeholder='Search...' style={{width: "80%" }} onChange = {(e) => setSearchQuery(e.target.value)} value={searchQuery}/>
         </Form.Field>
-        <Button type="submit">Search</Button>
+        <Button style={{marginBottom:"4%",backgroundColor:"blue",color:"white"}} type="submit">Search</Button>
         </Form>
     );
 };

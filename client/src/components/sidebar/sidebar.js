@@ -8,7 +8,7 @@ const Sidebar = ({flagForCreateCard,setFlagForCreateCard}) => {
   const [status, setStatus] = useState('');
   const dispatch=useDispatch();
   useEffect(()=>{
-    if(status==='view cards')
+    if(status==='view feed')
     dispatch(fetchCards());
     if(status==='create card')
     setFlagForCreateCard(true);
@@ -33,12 +33,12 @@ const Sidebar = ({flagForCreateCard,setFlagForCreateCard}) => {
       </Menu.Item>
 
       <Menu.Item
-        name='view cards'
+        name='view feed'
         color='teal'
         onClick={handleItemClick}
-        active={status === 'view cards'}
+        active={status === 'view feed'}
       >
-        View Cards
+        View Feed
       </Menu.Item>
     </Menu>
     );

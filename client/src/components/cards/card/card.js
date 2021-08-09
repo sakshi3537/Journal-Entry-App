@@ -4,6 +4,7 @@ import moment from 'moment'
 import { render } from 'react-dom';
 import { useDispatch } from 'react-redux';
 import { deleteCard,likeCard,updateCard } from '../../../actions/actions';
+import '../../../App.css'
 
 
 
@@ -22,6 +23,13 @@ const MyCard = ({card,currentId,setCurrentId,flagForCreateCard,setFlagForCreateC
   }
   const extra = (
     <div>
+      <div className = "imageCenter" >{
+        card.imageFile && <img style={{width:"333px",height:"333px",borderRadius:"80px",border:"teal 5px solid"}}
+        src={card.imageFile}
+        />
+      }
+      
+      </div>
       <div style={{float:"left"}}>
       <div>
       {card.tags.map((tag) => `#${tag} `)}
@@ -54,7 +62,7 @@ const MyCard = ({card,currentId,setCurrentId,flagForCreateCard,setFlagForCreateC
   return(
   <Card fluid
     header= {card.title}
-    image= {card.imageFile}
+    //image= {card.imageFile}
     
     meta= {card.name}
     description={card.caption}

@@ -31,7 +31,7 @@ const signIn= async (req,res) => {
 
 const signUp= async (req,res) => {
     try {
-        const {FirstName,LastName,Email,Password,ConfirmPassword} = req.body;
+        const {FirstName,LastName,Email,Password,ConfirmPassword,profilePic} = req.body;
         const existingUser = await userModel.findOne({email:Email});
         if(existingUser)
             res.status(200).json( "User Already exists");
@@ -39,9 +39,8 @@ const signUp= async (req,res) => {
             res.status(200).json("Passwords do not match");
         else{
             const hashedPassword= await bcrypt.hash(Password,12);
-            const newUser = new userModel({name :  `${FirstName} ${LastName}`, email : Email, password : hashedPassword});  
-            newUser.friends.push(newUser._id);
-            //console.log(newUser)  
+            const newUser = new userModel({name :  `${FirstName} ${LastName}`, email : Email, password : hashedPassword,profilePic:profilePic});  
+            newUser.friends.push(newUser._id);  
             await newUser.save();
             const token = jwt.sign({ email: Email, id: newUser._id }, secret);    
             res.status(200).json({result: newUser, token}); 

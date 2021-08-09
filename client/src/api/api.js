@@ -26,6 +26,9 @@ const fetchAllUsers = () => axios.get(`${BASE_URL}/allUsers`);
 const fetchUsers = (searchQuery) => axios.get(`${BASE_URL}/users/${searchQuery}`)
 
 const addFriend = (id) => axios.patch(`${BASE_URL}/addFriend/${id}`)
-export {fetchCards,createCard,deleteCard,updateCard,likeCard,signIn,signUp,fetchAllUsers,fetchUsers,addFriend};
+
+const fetchMyCards = () => axios.get(`${URL}/myCards`);
+
+export {fetchCards,createCard,deleteCard,updateCard,likeCard,signIn,signUp,fetchAllUsers,fetchUsers,addFriend,fetchMyCards};
 
 

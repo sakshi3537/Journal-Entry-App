@@ -16,7 +16,7 @@ const fetchUsers= async (req,res) => {
     try {
         const {searchQuery}= req.params;
         const users = await userModel.find();
-        const query = users.filter((user)=> user.name.includes(searchQuery));
+        const query = users.filter((user)=> (user.name.includes(searchQuery) && user._id!=req.userId));
         res.status(200).json(query);
     } catch (error) {
         res.status(404).json(error);

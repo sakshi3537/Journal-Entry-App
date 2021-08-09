@@ -3,37 +3,24 @@ import cardModel from '../Models/cardsModel.js'
 import userModel from '../Models/userModel.js';
 
 
-function flatten(arr) {
-    return arr.reduce(function (flat, toFlatten) {
-      return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
-    }, []);
-  }
 
 const fetchCards= async (req,res) => {
     try {
         const users= await userModel.find();
         const cards = await cardModel.find();
        const tempUsers = users.filter((user)=> user.friends.includes(req.userId));
-       const result = [];
-       console.log("start");
+       let desiredCards = [];
        for(let i=0;i<tempUsers.length;i++){
-        result.push(cards.filter((card)=> card.creator !== tempUsers[i]._id));
-        console.log("2==================");
+        desiredCards.push(cards.filter((card)=> (card.creator === String(tempUsers[i]._id))));
     }
-    
-   // console.log(result[0])
-    newres =[]
-    for(let j = 0; j < result.length; j++)
+    let newDesiredCards =[];
+    for(let i=0;i<desiredCards.length;i++)
     {
-        for(let k=0;k<result[j].length;k++)
-          newres = newres.push(result[j][k]); 
+        newDesiredCards=newDesiredCards.concat(desiredCards[i]);
     }
-    //res=flatten(res);
-    console.log("333333333333333333333")
-    console.log(newres);
-      
-        newres.reverse();
-        res.status(200).json(newres);
+   
+    newDesiredCards.reverse();
+        res.status(200).json(newDesiredCards);
     } catch (error) {
         res.status(404).json(error);
     }
@@ -63,6 +50,18 @@ const createCard= async (req,res) => {
         res.status(404).json(error);
     }
 }*/
+
+const fetchMyCards = async (req,res) =>{
+    try {
+        const cards = await cardModel.find();
+        const myCards= cards.filter((card) => (card.creator===req.userId));
+        myCards.reverse();
+        res.status(200).json(myCards);
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 const deleteCard = async (req,res) => {
     const {id}= req.params;
@@ -107,4 +106,4 @@ const likeCard = async (req,res)=>{
     }
 }
 
-export {fetchCards,createCard,deleteCard,updateCard,likeCard};
+export {fetchCards,createCard,deleteCard,updateCard,likeCard,fetchMyCards};

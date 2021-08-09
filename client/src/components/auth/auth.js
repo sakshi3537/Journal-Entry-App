@@ -13,7 +13,7 @@ import { CLEAR_ERROR } from '../../constants/constants.js';
 
 const Auth = ({isSignUp,setIsSignUp}) => {
   const dispatch = useDispatch();  
-  const [formData,setFormData] = useState({FirstName : '',LastName : '',Email : '', Password : '', ConfirmPassword : ''});
+  const [formData,setFormData] = useState({FirstName : '',LastName : '',Email : '', Password : '', ConfirmPassword : '',profilePic:''});
   const history = useHistory();
   const error=useSelector((state) => state.authReducer.status);
   const [errorStatement,setErrorStatement]=useState(error);
@@ -24,7 +24,7 @@ const Auth = ({isSignUp,setIsSignUp}) => {
       e.preventDefault();
       if(isSignUp){
         dispatch(signUp(formData,history));
-        setFormData({FirstName : '',LastName : '',Email : '', Password : '', ConfirmPassword : ''});
+        setFormData({FirstName : '',LastName : '',Email : '', Password : '', ConfirmPassword : '',profilePic:''});
       }  
       else{ 
         dispatch(signIn(formData,history));
@@ -85,6 +85,16 @@ const Auth = ({isSignUp,setIsSignUp}) => {
                 <Form.Field >
                      <Form.Input name = 'ConfirmPassword' label='Confirm Password' required type = 'password' placeholder='Confirm Password' style={{width: "100%" }} onChange = {handleChange} value={formData.ConfirmPassword}/>
                     </Form.Field>
+                    )
+            
+            } 
+            {
+                isSignUp && (
+                  <Form.Field>
+                  <label >Image</label>
+                  <FileBase64 type="file" multiple={false} onDone={({ base64 }) => setFormData({...formData,profilePic: base64})} value={formData.profilePic}/>
+      
+                  </Form.Field>
                     )
             
             } 
