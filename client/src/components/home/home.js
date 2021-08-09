@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Menu, Button } from 'semantic-ui-react'
+import { Menu, Button, Image, CommentAvatar } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import '../../App.css'
 import dropdownValues from  '../../constants/dropdown.js'
@@ -38,7 +38,6 @@ const Home = () => {
 
     const loggedInUser=JSON.parse(localStorage.getItem('profile'))?.result?.name;
     const loggedInUserProfilePic=JSON.parse(localStorage.getItem('profile'))?.result?.profilePic;
-
     useEffect(()=>{
         dispatch(fetchMyCards());
     },[])
@@ -53,13 +52,14 @@ const Home = () => {
     }
     const handleLogOut = async () => {
       dispatch(logOut(history));
-  
+      dispatch({type:CLEAR_SEARCH_RESULTS,payload:''});
     }
 
     const [searchQuery,setSearchQuery] = useState('');
     return (
-
-        <div>
+<div>
+      
+        
           <Menu 
       style = {{backgroundColor : "black"}}
       >
@@ -71,23 +71,22 @@ const Home = () => {
           onClick={handleItemClick}
         >Journey</Menu.Item>
         <Menu.Menu position='right'>
-        <Menu.Item
-            name='loggedInUserProfilePic'
-            style = {{color : "white", fontSize:"large"}}
-            color="teal"
-            >
-              {loggedInUser.profilePic}
-              </Menu.Item>
-        <Menu.Item
+       
+        <div>
+      <Image src= {loggedInUserProfilePic} style={{marginTop: "11%",width:"40px",height:"40px",borderRadius:"50%",border:"teal 2px solid"}} />
+      
+    </div>
+    <Menu.Item
             name='loggedInUser'
             style = {{color : "white", fontSize:"large"}}
             color="teal"
             >
               {loggedInUser}
               </Menu.Item>
+           
           <Menu.Item
             name='signin'
-            style = {{color : "white", fontSize:"large"}}
+            style = {{color : "white", fontSize:"medium"}}
             color="teal"
             onClick={handleLogOut}>
               Log Out
@@ -110,8 +109,13 @@ const Home = () => {
             (<b style={{color:'green'}}>{friendStatus}</b>):
             (<b style={{color:'red'}}>{friendStatus}</b>)}
             {users.map((user) => (
+                    
+                
                     <li style={{listStyleType:"none",marginTop:"2%",marginBottom:"2%",marginRight:"4%",paddingLeft:"2%",outline:".1rem solid blue"}}>
-                      {user.name} 
+                
+                  <Image src= {loggedInUserProfilePic} avatar style={{marginTop: "1%",marginBottom: "1%",width:"30px",height:"30px",borderRadius:"50%",border:"teal 2px solid"} } />
+                
+                  {user.name} 
                       <Button style={{backgroundColor:"white",color:"blue"}} onClick={() => {
                         (JSON.parse(localStorage.getItem('profile'))?.result?.friends.includes(user._id))
                         ?(dispatch(addFriend(user._id,false)))
@@ -119,7 +123,9 @@ const Home = () => {
                         {(JSON.parse(localStorage.getItem('profile'))?.result?.friends.includes(user._id))
                         ?"Remove Friend": "Add Friend"}
                       </Button>
+                    
                     </li>
+                    
                    
                 ))}
 
