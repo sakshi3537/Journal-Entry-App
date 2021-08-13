@@ -24,7 +24,7 @@ const MyCard = ({card,currentId,setCurrentId,flagForCreateCard,setFlagForCreateC
   const extra = (
     <div>
       <div className = "imageCenter" >{
-        card.imageFile && <img style={{width:"100%",height:"100%",borderRadius:"10%"}}
+        card.imageFile && <img style={{width:"100%",height:"100%",borderRadius:"10%",maxHeight:"500px",maxWidth:"500px"}}
         src={card.imageFile}
         />
       }

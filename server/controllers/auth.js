@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import userModel from '../Models/userModel.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import validateEmail from '../authUtilities.js'
 
 const secret = 'secret'
 const signIn= async (req,res) => {
@@ -31,7 +32,12 @@ const signIn= async (req,res) => {
 
 const signUp= async (req,res) => {
     try {
-        const {FirstName,LastName,Email,Password,ConfirmPassword,profilePic} = req.body;
+        let {FirstName,LastName,Email,Password,ConfirmPassword,profilePic} = req.body;
+        Email=Email.trim();Email=Email.toLowerCase();
+        if(!validateEmail(Email)){
+            res.status(200).json("Invalid Email");
+        }
+        else{
         const existingUser = await userModel.findOne({email:Email});
         if(existingUser)
             res.status(200).json( "User Already exists");
@@ -45,6 +51,7 @@ const signUp= async (req,res) => {
             const token = jwt.sign({ email: Email, id: newUser._id }, secret);    
             res.status(200).json({result: newUser, token}); 
         }
+    }
     } catch (error) {
         res.status(404).json(error);
     }

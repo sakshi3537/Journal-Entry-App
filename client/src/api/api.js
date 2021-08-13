@@ -3,6 +3,11 @@ import axios from 'axios'
 const URL = "https://journal-entry-app.herokuapp.com/cards"
 const AUTH_URL = "https://journal-entry-app.herokuapp.com/auth"
 const BASE_URL = "https://journal-entry-app.herokuapp.com"
+
+// const URL = "http://localhost:5000/cards"
+// const AUTH_URL = "http:///localhost:5000/auth"
+// const BASE_URL = "http:///localhost:5000"
+
 axios.interceptors.request.use((req) => {
     if (localStorage.getItem('profile')) {
       req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile'))?.token}`;

@@ -1,19 +1,25 @@
 import React, { Component, useEffect, useState } from 'react'
 import { Input, Menu } from 'semantic-ui-react'
 import { useHistory, useLocation } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { CLEAR_ERROR } from '../../constants/constants';
 const Topnavbar = ({isSignUp,setIsSignUp}) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const handleItemClick = () => {
+    dispatch({type:CLEAR_ERROR});
     history.push('/')
 
   }
 
   const handleSignInClick = () => {
+    dispatch({type:CLEAR_ERROR});
       setIsSignUp(false);
       history.push('/auth');
   }
 
   const handleSignUpClick = () => {
+    dispatch({type:CLEAR_ERROR});
       setIsSignUp(true);
       history.push('/auth');
   }

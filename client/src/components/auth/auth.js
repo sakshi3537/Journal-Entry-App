@@ -22,6 +22,7 @@ const Auth = ({isSignUp,setIsSignUp}) => {
   },[error]);
   const handleSubmit = async (e) => {  
       e.preventDefault();
+      dispatch({type:CLEAR_ERROR});
       if(isSignUp){
         dispatch(signUp(formData,history));
         setFormData({FirstName : '',LastName : '',Email : '', Password : '', ConfirmPassword : '',profilePic:''});
