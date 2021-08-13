@@ -7,7 +7,8 @@ import validateEmail from '../authUtilities.js'
 const secret = 'secret'
 const signIn= async (req,res) => {
     try {
-        const {Email,Password} = req.body;
+        let {Email,Password} = req.body;
+        Email=Email.trim();Email=Email.toLowerCase();
         const existingUser = await userModel.findOne({email:Email});
         if(!existingUser)
             res.status(200).json( "User doesn't exist");
