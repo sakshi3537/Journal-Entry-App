@@ -1,7 +1,7 @@
 ***Journal-Entry-App***
 
 Description:
-A web app that has an interface that provides the users a platform to write a daily journal and share it among their friends. Content of a journal would all depend on the user how much and what the want to share.
+A web app that provides users a platform to write a daily journal and share it among their friends. Content of a journal would all depend on the user how much and what they want to share.
 
 Key Functionalities:
 1. Users can create and post their journals. 
